@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.mxue.assistant.mapper.WorkInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.WorkInfo">
+        <id column="id" property="id" />
+        <result column="studnet_id" property="studnetId" />
+        <result column="work_number" property="workNumber" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="work_course" property="workCourse" />
+        <result column="work_title" property="workTitle" />
+        <result column="work_contant" property="workContant" />
+        <result column="work_remark" property="workRemark" />
+        <result column="end_time" property="endTime" />
+        <result column="work_type" property="workType" />
+        <result column="work_status" property="workStatus" />
+        <result column="work_annex" property="workAnnex" />
+        <result column="work_picture" property="workPicture" />
+    </resultMap>
+
+</mapper>
