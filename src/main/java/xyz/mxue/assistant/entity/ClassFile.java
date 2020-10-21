@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,11 +16,12 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2020-10-21
+ * @since 2020-10-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("tb_class_file")
+@ApiModel(value="ClassFile对象", description="班级文件")
 public class ClassFile implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,29 +29,19 @@ public class ClassFile implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 班级编号
-     */
+    @ApiModelProperty(value = "班级编号")
     private String classNumber;
 
-    /**
-     * 文件名
-     */
+    @ApiModelProperty(value = "文件名")
     private String fileName;
 
-    /**
-     * 文化路径
-     */
+    @ApiModelProperty(value = "文化路径")
     private String filePath;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
 

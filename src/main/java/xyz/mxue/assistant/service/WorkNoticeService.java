@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author mxuexxmy
- * @since 2020-10-21
+ * @since 2020-10-22
  */
 public interface WorkNoticeService extends IService<WorkNotice> {
 

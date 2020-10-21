@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author mxuexxmy
- * @since 2020-10-21
+ * @since 2020-10-22
  */
 @Service
 public class ClassNoticeServiceImpl extends ServiceImpl<ClassNoticeMapper, ClassNotice> implements ClassNoticeService {
