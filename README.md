@@ -9,12 +9,13 @@
 
 ### 后端技术栈
 
-1. spring boot
+1. Spring Boot
 2. [MyBatis-Plus](https://mybatis.plus/)
-3. lombok
+3. Lombok
 ### 前端技术栈
 
-2. layui 
+1. Bootstrap
+2. Admin LTE
 
 ### 技术难题
 
