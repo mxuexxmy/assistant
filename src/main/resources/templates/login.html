@@ -15,83 +15,152 @@
     <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}">
-    <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}">
+    <!-- AdminLTE 皮肤。
+         从 css/skins 目录下选择一个皮肤，以减少负载，而不是下载所有皮肤。 -->
+    <link rel="stylesheet"  th:href="@{/css/skins/_all-skins.min.css}">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+    <header class="main-header" >
+        <nav class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="/index" class="navbar-brand">学委助手</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
 
-    <div class="login-logo">
-        <a href="#"> <b>学委助手</b></a>
-    </div>
-    <br>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-
-        <p class="login-box-msg"> <strong>欢迎登录</strong></p>
-
-        <form action="/login" method="post" >
-
-            <div class="alert alert-danger alert-dismissible"  th:if="${msg != null}"  >
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
-                <strong th:text="${msg}"></strong>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="#">作业</a></li>
+                        <li><a href="#">班级</a></li>
+                    </ul>
+                </div>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Notifications Menu -->
+                        <li class="dropdown notifications-menu">
+                            <!-- Menu toggle button -->
+                            <a href="/" class="dropdown-toggle">
+                                <i class="fa  fa-user"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-custom-menu -->
             </div>
 
-            <div class="form-group has-feedback">
-                <input type="text" name="userPhone" class="form-control" placeholder="学号">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
+        </nav>
+    </header>
 
-            <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="密码">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" > 记住我
-                        </label>
+    <!-- Full Wnameth Column -->
+    <div class="content-wrapper">
+        <div class="container" >
+            <section class="content">
+                <div class="box box-default">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#user_info" data-toggle="tab" aria-expanded="true">登录</a></li>
+                            <li><a href="#modify_password" data-toggle="tab" aria-expanded="false">注册</a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="alert alert-danger alert-dismissible"  th:if="${msg != null}"  >
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true" >&times;</button>
+                                <strong th:text="${msg}"></strong>
+                            </div>
+
+                            <!--用户信息-->
+                            <div class="tab-pane active" id="user_info" >
+                                <form class="form-horizontal"  action="/login" id="form-user-edit" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;学号&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <input type="text" name="studentId" class="form-control" placeholder="学号">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;密码&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <input type="password" name="password" class="form-control" placeholder="密码">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-info">立即登录</button>
+                                        <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;忘记密码？</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--修改密码-->
+                            <div class="tab-pane" id="modify_password">
+                                <form class="form-horizontal"  id="form-user-resetPwd" method="post">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;学号&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <input type="text" class="form-control" placeholder="学号">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;密码&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <input type="text" class="form-control" placeholder="密码">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-info">立即登录</button>
+                                        <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;忘记密码？</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button  type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
-        <a href="#">忘记密码？</a><br>
-        <a href="#" class="text-center">注册新会员</a>
+            </section>
+        </div>
     </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; 2020-2021 <a href="/about">学委助手</a>.</strong> All rights
+            reserved.
+        </div>
+        <!-- /.container -->
+    </footer>
+
 </div>
 
-<!-- /.login-box -->
-<!-- /.content-wrapper -->
-<footer class="modal-footer">
-    <div class="pull-right hidden-xs center-block">
-        <b>Version</b> 1.0.0
-    </div>
-    <strong>Copyright &copy; 2020-2021 <a href="/about">学委助手</a>.</strong> All rights
-    reserved.
-</footer>
 
 <!-- jQuery 3 -->
-<script  th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script  th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<!-- iCheck -->
-<script  th:src="@{/plugins/iCheck/icheck.min.js}"></script>
-
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
-    });
-</script>
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
 </body>
 </html>
