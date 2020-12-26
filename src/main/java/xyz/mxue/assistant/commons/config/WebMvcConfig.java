@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 添加自定义拦截器
      * .addPathPatterns("/**")  拦截的请求路径
-     * .excludePathPatterns("/login"); 排除的请求路径
+     * .excludePathPatterns("/login"); 排除的请求路径  备注：这个可以排除请求路径和资源文件路径
      *
      * @param registry
      */

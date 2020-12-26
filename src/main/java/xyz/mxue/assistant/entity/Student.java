@@ -44,5 +44,4 @@ public class Student implements Serializable {
 
     private Date updateTime;
 
-
 }
