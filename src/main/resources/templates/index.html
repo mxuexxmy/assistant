@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>学委助手 | 首页</title>
-    <!-- 告诉浏览器该页面是自适应布局 -->
-    <meta content="wnameth=device-wnameth, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="shortcut icon" th:href="@{/favicon.ico}">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet"  th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
-    <!-- Theme style -->
-    <link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}">
-    <!-- AdminLTE 皮肤。
-         从 css/skins 目录下选择一个皮肤，以减少负载，而不是下载所有皮肤。 -->
-    <link rel="stylesheet"  th:href="@{/css/skins/_all-skins.min.css}">
+    <th:block th:include="include/include :: head('学委助手 | 首页')"/>
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
@@ -30,110 +14,85 @@
             <!-- Content Header (页眉) -->
             <section class="content-header">
                 <h1>
-                    首页
-                    <small>控制台</small>
+                    记录打印
+                    <small>录入打印</small>
                 </h1>
             </section>
 
             <!-- Main content -->
             <section class="content">
-
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">CPU 使用</span>
-                                    <span class="info-box-number">90<small>%</small></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">喜欢</span>
-                                    <span class="info-box-number">41,410</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-
-                        <!-- fix for small devices only -->
-                        <div class="clearfix visible-sm-block"></div>
-
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">销售</span>
-                                    <span class="info-box-number">760</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">新会员</span>
-                                    <span class="info-box-number">2,000</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                    </div>
                 <div class="box box-default">
-                        <div class="box-header">
-                            <h3 class="box-title">快捷应用</h3>
-                        </div>
-                        <div class="box-body">
-                            <a class="btn btn-app" href="/index">
-                                <i class="fa fa-edit control-label"></i> 录入打印
-                            </a>
-                            <a class="btn btn-app" href="/order-input">
-                                <i class="fa fa-plus-square control-label"></i> 详细录入
-                            </a>
-                            <a class="btn btn-app" href="/order-input">
-                                <i class="fa fa-plus-square control-label"></i> 详细录入
-                            </a>
-                            <a class="btn btn-app" href="/order-input">
-                                <i class="fa fa-plus-square control-label"></i> 详细录入
-                            </a>
-                        </div>
+                    <div class="box-header">
+                        <a class="btn btn-app" href="/index">
+                            <i class="fa fa-edit control-label"></i> 录入打印
+                        </a>
+                        <a class="btn btn-app" href="/order-input">
+                            <i class="fa fa-plus-square control-label"></i> 详细录入
+                        </a>
                     </div>
+                    <div class="alert alert-danger alert-dismissible"  th:if="${msg != null}"  >
+                        <button type="button" class="close" data-dismiss="alert" aria-hnameden="true" >&times;</button>
+                        <strong th:text="${msg}"></strong>
+                        <strong th:text="${totalAmount}"></strong>
+                    </div>
+                    <form action="/printing/tb-print-order/calculate" id="myForm" class="form-horizontal" method="post">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label xrequired">顾客姓名</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"  name="userName" placeholder="请输入姓名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label xrequired">打印份数</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="prinfNumber" placeholder="请输入打印份数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label xrequired">张数</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="paperNumber" placeholder="请输入打印张数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label xrequired">价格</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="amount" placeholder="请输入打印一张的价格">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="button" class="btn btn-default" onclick="formReset()">清除</button>
+                            <button type="submit" class="btn btn-info pull-right">计算</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.container -->
     </div>
+    <!-- /.content-wrapper -->
 
     <th:block th:replace="include/footer :: footer"/>
-
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<!-- SlimScroll -->
-<script th:src="@{/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
-<!-- FastClick -->
-<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
-<!-- AdminLTE App -->
-<script th:src="@{/js/adminlte.min.js}"></script>
+<th:block th:include="include/include :: foot"/>
+<script>
+    function formReset()
+    {
+        document.getElementById("myForm").reset();
+    }
+</script>
 </body>
 </html>

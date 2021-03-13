@@ -1,0 +1,20 @@
+<header class="main-header" th:fragment="header">
+    <nav class="navbar navbar-static-top">
+        <div class="container">
+            <th:block th:replace="include/menu :: site-name"/>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Notifications Menu -->
+                    <li class="dropdown notifications-menu">
+                        <!-- Menu toggle button -->
+                        <a href="/" class="dropdown-toggle">
+                            <i class="fa  fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-custom-menu -->
+        </div>
+    </nav>
+</header>
