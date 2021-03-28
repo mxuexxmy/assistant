@@ -33,6 +33,17 @@
 5. 测试报告
 6. 使用说明书
 
+### 参考资料
+
+* 人人代码生成器
+* 小若
+*  [仿百度网盘的一款轻量级微服务架构网盘系统，云盘系统，文件管理系统](https://gitee.com/college996/zwz-netdisk) 
+* layui
+  * layer
+  * laydate
+  * fly
+* spring boot 2.2.6
+
 ### 项目计划
 
 1. `web端-首先`
