@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>xyz.mxue</groupId>
 	<artifactId>assistant</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>assistant</name>
 	<description>学委助手</description>
 
