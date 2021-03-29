@@ -2,6 +2,8 @@ package xyz.mxue.assistant.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author mxuexxmy
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @Version 1.0
  **/
 @Controller
+@RequestMapping
 public class IndexController {
 
     @GetMapping
@@ -23,9 +26,9 @@ public class IndexController {
         return "login";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/main")
     public String indexView() {
-        return "index";
+        return "main";
     }
 
 

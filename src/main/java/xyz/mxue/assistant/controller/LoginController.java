@@ -3,13 +3,11 @@ package xyz.mxue.assistant.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import xyz.mxue.assistant.commons.ConstantUtils;
+import org.springframework.web.bind.annotation.*;
+import xyz.mxue.assistant.commons.constant.ConstantUtils;
 import xyz.mxue.assistant.entity.Student;
+import xyz.mxue.assistant.model.Result;
 import xyz.mxue.assistant.service.StudentService;
 
 import javax.annotation.Resource;
@@ -23,37 +21,36 @@ import javax.servlet.http.HttpServletRequest;
  * @Version 1.0
  **/
 @Controller
+@RequestMapping
 public class LoginController {
 
     @Resource
     private StudentService studentService;
 
-    @PostMapping("/login")
-    public String login(String studentId, String password,
-                        HttpServletRequest httpServletRequest, ModelMap map) {
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("student_id", studentId);
-        Student student = studentService.getOne(queryWrapper);
-
-        if (student == null) {
-            map.put("msg", "学号不存在！");
-            return "login";
-        } else {
-            // 明文密码加密
-            String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
-            // 判断密码是否相等
-            if (md5Password.equals(student.getPassword())) {
-                httpServletRequest.getSession().setAttribute(ConstantUtils.SESSION_USER, student);
-                return "redirect:/index";
-            }
-
-            map.put("msg", "密码错误！");
-            return "login";
-        }
+    @PostMapping("/loginService")
+    @ResponseBody
+    public Result<String> login(HttpServletRequest httpServletRequest) {
+        System.out.println(httpServletRequest);
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("student_id", studentId);
+//        Student student = studentService.getOne(queryWrapper);
+//        if (student == null) {
+//            return Result.failed("学号不存在");
+//        } else {
+//            // 明文密码加密
+//            String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+//            // 判断密码是否相等
+//            if (md5Password.equals(student.getPassword())) {
+//                httpServletRequest.getSession().setAttribute(ConstantUtils.SESSION_USER, student);
+//                return Result.succeed("登录成功");
+//            }
+//
+//            return Result.failed("密码错误");
+        return Result.succeed("登录成功！");
     }
 
     @GetMapping("logout")
-    public String logout(HttpServletRequest httpServletRequest, ModelMap map){
+    public String logout(HttpServletRequest httpServletRequest){
         httpServletRequest.getSession().invalidate();
         return "login";
     }
