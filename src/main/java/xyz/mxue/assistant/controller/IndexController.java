@@ -16,20 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class IndexController {
 
+    private String prefix = "pages";
+
     @GetMapping
     public String index() {
-        return "login";
+        return prefix + "/login";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("main")
+    public String indexSHow() {
+        return "index";
     }
 
-    @GetMapping("/main")
-    public String indexView() {
-        return "main";
+    @GetMapping("/console")
+    public String console() {
+        return prefix + "/console";
     }
-
 
 }

@@ -20,15 +20,14 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 10/21/2020 11:31 PM
  * @Version 1.0
  **/
-@Controller
+@RestController
 @RequestMapping
 public class LoginController {
 
     @Resource
     private StudentService studentService;
 
-    @PostMapping("/loginService")
-    @ResponseBody
+    @PostMapping("/login")
     public Result<String> login(HttpServletRequest httpServletRequest) {
         System.out.println(httpServletRequest);
 //        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
