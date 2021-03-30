@@ -12,8 +12,8 @@
         <form class="layui-form">
             <div class="login_face"><img th:src="@{/images/logo.png}"></div>
             <div class="layui-form-item input-item">
-                <label for="studentId">用户名</label>
-                <input type="text" lay-verify="required" name="studentId" placeholder="请输入账号" autocomplete="off" id="studentId" class="layui-input">
+                <label for="studentInfo">手机号/邮箱</label>
+                <input type="text" lay-verify="required" name="studentInfo" placeholder="请输入手机号/邮箱" autocomplete="off" id="studentInfo" class="layui-input">
             </div>
             <div class="layui-form-item input-item">
                 <label for="password">密码</label>
@@ -25,11 +25,14 @@
                 <div class="img ok-none-select" id="captchaImg"></div>
             </div>
             <div class="layui-form-item">
+                <input type="checkbox" name="remember" lay-skin="primary" title="记住我" checked="">
+            </div>
+            <div class="layui-form-item">
                 <button class="layui-btn layui-block" lay-filter="login" lay-submit="">登录</button>
             </div>
             <div class="login-link">
-                <a href="register.html">注册</a>
-                <a href="forget.html">忘记密码?</a>
+                <a href="/register">注册</a>
+                <a href="/forget">忘记密码?</a>
             </div>
         </form>
     </div>

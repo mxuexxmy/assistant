@@ -1,7 +1,5 @@
 package xyz.mxue.assistant.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,7 +13,6 @@ import java.util.Date;
 @Data
 public class StudentInfoVO implements Serializable {
 
-
     @ApiModelProperty(value = "ID")
     private Long id;
 
@@ -28,7 +25,7 @@ public class StudentInfoVO implements Serializable {
     @ApiModelProperty(value = "班级名")
     private String classNumber;
 
-    @ApiModelProperty(value = "1表示学委，2表示普通学生")
+    @ApiModelProperty(value = "0表示系统管理员，1表示学委，2表示学委助理，3表示普通学生")
     private Integer role;
 
     @ApiModelProperty(value = "邮箱")

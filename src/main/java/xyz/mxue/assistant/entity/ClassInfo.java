@@ -30,10 +30,7 @@ public class ClassInfo implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "学委学号")
-    private String studentId;
-
-    @ApiModelProperty(value = "班级编号")
-    private String classNumber;
+    private String studentNo;
 
     @ApiModelProperty(value = "班名")
     private String className;

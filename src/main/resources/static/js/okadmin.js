@@ -307,4 +307,13 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
 	});
 
 
+	/**
+	 * 弹窗皮肤
+	 */
+	$("#alertSkin").click(function () {
+		okLayer.open("皮肤动画", "/alert-skin", "50%", "45%", function (layero) {
+		}, function () {
+		});
+	});
+
 });

@@ -33,15 +33,15 @@ public class Student implements Serializable {
     private String studentName;
 
     @ApiModelProperty(value = "学号")
-    private String studentId;
+    private String studentNo;
 
     @ApiModelProperty(value = "班级编号")
-    private String classNumber;
+    private String classNo;
 
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "1表示学委，2表示普通学生")
+    @ApiModelProperty(value = "0表示系统管理员，1表示学委，2表示学委助理，3表示普通学生")
     private Integer role;
 
     @ApiModelProperty(value = "邮箱")
@@ -49,6 +49,9 @@ public class Student implements Serializable {
 
     @ApiModelProperty(value = "手机")
     private String phone;
+
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;

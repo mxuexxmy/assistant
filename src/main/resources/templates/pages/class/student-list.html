@@ -103,9 +103,13 @@
 
 <script type="text/html" id="roleTpl">
     {{#  if(d.role == 0){ }}
-    <span class="layui-btn layui-btn-normal layui-btn-xs">超级会员</span>
+    <span class="layui-btn layui-btn-normal layui-btn-xs">系统管理员</span>
     {{#  } else if(d.role == 1) { }}
-    <span class="layui-btn layui-btn-warm layui-btn-xs">普通用户</span>
+    <span class="layui-btn layui-btn-warm layui-btn-xs">学委</span>
+    {{#  } else if(d.role == 2) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">学委助理</span>
+    {{#  } else if(d.role == 2) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">学生</span>
     {{#  } }}
 </script>
 <script>

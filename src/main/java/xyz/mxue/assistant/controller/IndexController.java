@@ -1,5 +1,6 @@
 package xyz.mxue.assistant.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,7 @@ public class IndexController {
         return prefix + "/console";
     }
 
-    // 系统设计页面
+    // 系统设置页面
     @GetMapping("/system/setting")
     public String systemSetting() {
         return prefix + "/system/setting";
@@ -60,9 +61,28 @@ public class IndexController {
         return prefix + "/member/user-pwd";
     }
 
+    // 学生列表页面
     @GetMapping("/student-list")
     public String studentList() {
         return prefix + "/class/student-list";
+    }
+
+    // 皮肤动画
+    @GetMapping("/alert-skin")
+    public String alertSkin() {
+        return prefix + "/system/alertSkin";
+    }
+
+    // 注册页面
+    @GetMapping("/register")
+    public String register() {
+        return prefix + "/register";
+    }
+
+    // 忘记密码页面
+    @GetMapping("/forget")
+    public String forget() {
+        return prefix + "/forget";
     }
 
 
