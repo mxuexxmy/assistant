@@ -85,7 +85,7 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
 			offset: 'r', //右边
 			time: 200000, //2秒后自动关闭
 			anim: -1,
-			content: "./pages/system/setting.html"
+			content: "/system/setting"
 		});
 	});
 
@@ -286,55 +286,6 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
 		});
 	}
 
-	/**
-	 * 捐赠作者
-	 */
-	$(".layui-footer button.donate").click(function () {
-		layer.tab({
-			area: ["330px", "350px"],
-			tab: [{
-				title: "支付宝",
-				content: "<img src='images/zfb.jpg' width='200' height='300' style='margin: 0 auto; display: block;'>"
-			}, {
-				title: "微信",
-				content: "<img src='images/wx.jpg' width='200' height='300' style='margin: 0 auto; display: block;'>"
-			}]
-		});
-	});
-
-	/**
-	 * QQ群交流
-	 */
-	$("body").on("click", ".layui-footer button.communication, #noticeQQ", function () {
-		layer.tab({
-			area: ["auto", "370px"],
-			tab: [{
-				title: "QQ群5", 
-				content: "<img src='images/qq5.png' width='200' height='300' style='margin: 0 auto; display: block;'/>"
-			},{
-				title: "QQ群4（已满）",
-				content: "<img src='images/qq4.png' width='200' height='300' style='margin: 0 auto; display: block;'/>"
-			}, {
-				title: "QQ群3（已满）",
-				content: "<img src='images/qq3.png' width='200' height='300' style='margin: 0 auto; display: block;'/>"
-			}, {
-				title: "QQ群2（已满）",
-				content: "<img src='images/qq2.png' width='200' height='300' style='margin: 0 auto; display: block;'/>"
-			}, {
-				title: "QQ群1（已满）",
-				content: "<img src='images/qq1.png' width='200' height='300' style='margin: 0 auto; display: block;'/>"
-			}]
-		});
-	});
-
-	/**
-	 * 弹窗皮肤
-	 */
-	$("#alertSkin").click(function () {
-		okLayer.open("皮肤动画", "pages/system/alertSkin.html", "50%", "45%", function (layero) {
-		}, function () {
-		});
-	});
 
 	/**
 	 * 退出操作
@@ -343,91 +294,17 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
 		okLayer.confirm("确定要退出吗？", function (index) {
 			okTab.removeTabStorage(function (res) {
 				okTab.removeTabStorage();
-				window.location = "pages/login.html";
+				okUtils.ajax("/logout", "get",null, true).done(function (response) {
+					okLayer.greenTickMsg(response.msg, function () {
+						window.location = "/";
+					})
+				}).fail(function (error) {
+					console.log(error)
+				});
+
 			});
 		});
 	});
 
-	/**
-	 * 锁定账户
-	 */
-	var lock_inter = "";
-	lockShowInit(okUtils);
-	$("#lock").click(function () {
-		okLayer.confirm("确定要锁定账户吗？", function (index) {
-			layer.close(index);
-			okUtils.local("isLock", '1');//设置锁屏缓存防止刷新失效
-			lockShowInit(okUtils);//锁屏
-		});
-	});
 
-	/**锁屏方法*/
-	function lockShowInit(okUtils) {
-		let localLock = okUtils.local("isLock");
-		$("#lockPassword").val("");
-		if (!localLock) {
-			return;
-		}
-
-		$(".lock-screen").show();
-		Snowflake("snowflake"); // 雪花
-
-		var lock_bgs = $(".lock-screen .lock-bg img");
-		$(".lock-content .time .hhmmss").html(okUtils.dateFormat("", "hh <p lock='lock'>:</p> mm"));
-		$(".lock-content .time .yyyymmdd").html(okUtils.dateFormat("", "yyyy 年 M 月 dd 日"));
-
-		var i = 0, k = 0;
-		lock_inter = setInterval(function () {
-			i++;
-			if (i % 8 == 0) {
-				k = k + 1 >= lock_bgs.length ? 0 : k + 1;
-				i = 0;
-				lock_bgs.removeClass("active");
-				$(lock_bgs[k]).addClass("active");
-			}
-			$(".lock-content .time .hhmmss").html(okUtils.dateFormat("", "hh <p lock='lock'>:</p> mm"));
-		}, 1000);
-
-		//提交密码
-		form.on('submit(lockSubmit)', function (data) {
-			console.log(data);
-			if (data.field.lock_password !== "123456") {
-				layer.msg("密码不正确", {
-					icon: 5,
-					zIndex: 999999991
-				});
-			} else {
-				layer.msg("密码输入正确", {
-					icon: 6,
-					zIndex: 999999992,
-					end: function () {
-						okUtils.local("isLock", null);   //清除锁屏的缓存
-						$("#lockPassword").val("");   //清除输入框的密码
-						$(".lock-screen").hide();
-						clearInterval(lock_inter);
-					}
-				});
-			}
-			return false;
-		});
-
-		//退出登录
-		$("#lockQuit").click(function () {
-			// window.location.href = "./pages/login.html";
-			window.location.replace("./pages/login.html");  //替换当前页面
-		});
-	}
-
-	console.log("        __                         .___      .__        \n" +
-		"  ____ |  | __         _____     __| _/_____ |__| ____  \n" +
-		" /  _ \\|  |/ /  ______ \\__  \\   / __ |/     \\|  |/    \\ \n" +
-		"(  <_> )    <  /_____/  / __ \\_/ /_/ |  Y Y  \\  |   |  \\\n" +
-		" \\____/|__|_ \\         (____  /\\____ |__|_|  /__|___|  /\n" +
-		"            \\/              \\/      \\/     \\/        \\/\n" +
-		"" +
-		"版本：v2.0\n" +
-		"作者：bobi\n" +
-		"邮箱：bobi1234@foxmail.com\n" +
-		"企鹅：833539807\n" +
-		"描述：一个很赞的，扁平化风格的，响应式布局的后台管理模版，旨为后端程序员减压！");
 });

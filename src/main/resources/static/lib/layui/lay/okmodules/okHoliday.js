@@ -54,9 +54,7 @@ layui.define(["okUtils"], function (exprots) {
                     "泰山脊，领风骚环宇，有谁堪比？<br/>" +
                     "ok-admin v2.0 祝您国庆节快乐！<br/>祝福伟大的祖国，越来越强大。<br/>祝福强大的祖国，一直屹立于世界东方！(^し^)";
             } else {
-                content = "ok-admin v2.0上线啦(^し^)<br/>" +
-                    "在此郑重承诺该模板<span style='color:#5cb85c'>永久免费</span>为大家提供<br/>" +
-                    "若有更好的建议欢迎<span id='noticeQQ'>加入QQ群</span>一起聊";
+                content = "测试页面";
             }
             return content;
         }
