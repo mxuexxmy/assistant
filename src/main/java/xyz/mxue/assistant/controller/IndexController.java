@@ -85,5 +85,11 @@ public class IndexController {
         return prefix + "/forget";
     }
 
+    // 邮箱注册页面
+    @GetMapping("/register-email")
+    public String registerEmail() {
+        return prefix + "/register-email";
+    }
+
 
 }

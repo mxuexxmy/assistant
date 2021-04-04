@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-03-30
+ * @since 2021-04-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -30,7 +30,7 @@ public class ClassInfo implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "学委学号")
-    private String studentNo;
+    private String createStudentNo;
 
     @ApiModelProperty(value = "班名")
     private String className;

@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-03-30
+ * @since 2021-04-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -32,11 +32,8 @@ public class ClassFile implements Serializable {
     @ApiModelProperty(value = "班级编号")
     private String classNumber;
 
-    @ApiModelProperty(value = "文件名")
-    private String fileName;
-
-    @ApiModelProperty(value = "文化路径")
-    private String filePath;
+    @ApiModelProperty(value = "文件ID")
+    private Long fileId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;

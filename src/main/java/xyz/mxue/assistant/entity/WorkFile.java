@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-03-30
+ * @since 2021-04-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,11 +35,8 @@ public class WorkFile implements Serializable {
     @ApiModelProperty(value = "学号")
     private String studentId;
 
-    @ApiModelProperty(value = "作业文件名")
-    private String workFileName;
-
-    @ApiModelProperty(value = "作业文件路径")
-    private String workFilePath;
+    @ApiModelProperty(value = "文件ID")
+    private Long fileId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;

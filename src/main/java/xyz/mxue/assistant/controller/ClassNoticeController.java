@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-03-30
+ * @since 2021-04-04
  */
 @RestController
 @RequestMapping("/assistant/class-notice")

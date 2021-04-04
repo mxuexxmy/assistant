@@ -56,10 +56,10 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("tb_class_info", "tb_class_file", "tb_class_notice", "tb_student", "tb_work_info", "tb_work_file", "tb_work_notice", "tb_work_submit");
+        strategy.setInclude();
 
         strategy.setNaming(NamingStrategy.underline_to_camel); // 数据库表映射到实体的命名策略
-        strategy.setTablePrefix("tb_"); // 生成实体是去掉表前缀
+        strategy.setTablePrefix("tb_","sys_"); // 生成实体是去掉表前缀
 
         strategy.setColumnNaming(NamingStrategy.underline_to_camel); // 数据库表字段映射到实体的命名策略
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain=true) setter 链式操作

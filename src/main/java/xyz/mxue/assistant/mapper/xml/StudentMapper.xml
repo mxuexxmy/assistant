@@ -5,14 +5,11 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.Student">
         <id column="id" property="id" />
+        <result column="user_id" property="userId" />
         <result column="student_name" property="studentName" />
-        <result column="student_id" property="studentId" />
-        <result column="class_number" property="classNumber" />
-        <result column="password" property="password" />
-        <result column="role" property="role" />
-        <result column="email" property="email" />
-        <result column="phone" property="phone" />
-        <result column="avatar" property="avatar" />
+        <result column="student_no" property="studentNo" />
+        <result column="class_no" property="classNo" />
+        <result column="student_type" property="studentType" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>

@@ -32,12 +32,8 @@
         <form class="layui-form ">
             <div class="layui-form-item tit">注册</div>
             <div class="layui-form-item input-item">
-                <label for="username">姓名</label>
-                <input type="text" lay-verify="required" name="username" placeholder="请输入姓名" autocomplete="off" id="username" class="layui-input">
-            </div>
-            <div class="layui-form-item input-item">
-                <label for="studentId">学号</label>
-                <input type="text" lay-verify="required" name="studentId" placeholder="请输入学号" autocomplete="off" id="studentId" class="layui-input">
+                <label for="username">昵称</label>
+                <input type="text" lay-verify="required" name="username" placeholder="请输入昵称" autocomplete="off" id="username" class="layui-input">
             </div>
             <div class="layui-form-item input-item">
                 <label for="password">密码</label>
@@ -61,6 +57,7 @@
             </div>
             <div class="login-link">
                 <a href="/">有账号去登录</a>
+                <a href="/register-email">邮箱注册</a>
             </div>
         </form>
     </div>
@@ -77,10 +74,6 @@
             let setInter = '';
             /**定时器对象*/
             let second = 60;//设置时间
-            /**
-             * 初始化验证码
-             */
-            // let verifyCode = new okGVerify("#captchaImg");
 
             /**
              * 数据校验

@@ -8,5 +8,5 @@ public class ConstantUtils {
     /**
      * 用户 session
      */
-    public static final String SESSION_USER = "student";
+    public static final String SESSION_USER = "user";
 }

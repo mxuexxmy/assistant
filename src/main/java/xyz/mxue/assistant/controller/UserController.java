@@ -1,30 +1,41 @@
 package xyz.mxue.assistant.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import xyz.mxue.assistant.entity.Student;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
+import xyz.mxue.assistant.entity.User;
+import xyz.mxue.assistant.model.Result;
+import xyz.mxue.assistant.service.UserService;
+
+import javax.annotation.Resource;
 
 /**
+ * <p>
+ * 用户表 前端控制器
+ * </p>
+ *
  * @author mxuexxmy
- * @date 12/23/2020$ 3:24 PM$
+ * @since 2021-04-04
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/assistant/user")
 public class UserController {
 
-    private String prefix = "user";
+    @Resource
+    private UserService userService;
 
-    @GetMapping("profile")
-    public String profile(HttpServletRequest request, ModelMap map) {
-        Student student  = (Student) request.getSession().getAttribute("student");
-        map.put("student", student);
-        return prefix + "/profile";
+    /**
+     * 用户注册
+     * @param user 用户学习
+     * @return Result<String>
+     */
+    @PostMapping("/register")
+    public Result<String> register(User user) {
+
+        return Result.succeed("注册成功");
     }
 
-
 }
+

@@ -3,15 +3,15 @@ package xyz.mxue.assistant.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import xyz.mxue.assistant.commons.constant.ConstantUtils;
 import xyz.mxue.assistant.commons.constant.ResultCode;
 import xyz.mxue.assistant.commons.utils.RegexUtils;
-import xyz.mxue.assistant.entity.Student;
+import xyz.mxue.assistant.entity.User;
 import xyz.mxue.assistant.model.Result;
-import xyz.mxue.assistant.service.StudentService;
+import xyz.mxue.assistant.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     @Resource
-    private StudentService studentService;
+    private UserService userService;
 
     @PostMapping("/login")
     public Result<String> login(String studentInfo, String password, String remember, HttpServletRequest request) {
@@ -42,22 +42,22 @@ public class LoginController {
              return Result.failed(ResultCode.USER_ERROR_A0402.getMessage());
         }
 
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(StrUtil.isNotBlank(email), "email", email)
                 .eq("phone", studentInfo);
-        Student student = studentService.getOne(queryWrapper);
-        if (student == null) {
+        User user = userService.getOne(queryWrapper);
+        if (user == null) {
             return StrUtil.isNotBlank(email) ? Result.failed("邮箱不存在！") : Result.failed("手机号不存在！");
         } else {
             // 明文密码加密
-            String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+            String md5Password =  SecureUtil.md5(password);
             // 判断密码是否相等
-            if (md5Password.equals(student.getPassword())) {
-                request.getSession().setAttribute(ConstantUtils.SESSION_USER, student);
+            if (md5Password.equals(user.getPassword())) {
+                request.getSession().setAttribute(ConstantUtils.SESSION_USER, user);
                 if (StrUtil.isNotBlank(remember)) {
-                    StpUtil.setLoginId(student.getId(),true);
+                    StpUtil.setLoginId(user.getId(),true);
                 } else {
-                    StpUtil.setLoginId(student.getId(), false);
+                    StpUtil.setLoginId(user.getId(), false);
                 }
                 return Result.succeed("登录成功!");
             }

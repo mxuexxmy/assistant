@@ -38,15 +38,21 @@
 ### 参考资料
 
 * 文件上传和下载  https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
-
 * 人人代码生成器
 * 小若
 *  [仿百度网盘的一款轻量级微服务架构网盘系统，云盘系统，文件管理系统](https://gitee.com/college996/zwz-netdisk) 
 * layui
 * ok-admin
-* sa-token
-* hutools
+* sa-token 权限，认证框架
+* easyexecl  Java 处理 Excel 工具
+* JAPIDocs Spring Boot 接口文档生成工具
+* kkFileView 基于 Spring boot 打造的多类型文件在线预览项目。
+* screw  简单好用的数据库表结构文档生成工具
+* JustAuth 帮你搞定第三方登陆的 Java 开源组件。
+* hutool 
 * spring boot 2.2.6
+* mybatis-plus
+* Lombok
 
 ### 项目计划
 

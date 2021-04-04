@@ -1,5 +1,6 @@
 package xyz.mxue.assistant;
 
+import cn.hutool.crypto.SecureUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -41,5 +42,10 @@ class AssistantApplicationTests {
 		}
 		return s.substring(0, length);
 
+	}
+
+	@Test
+	public void testMD5() {
+		System.out.println(SecureUtil.md5("123456"));
 	}
 }
