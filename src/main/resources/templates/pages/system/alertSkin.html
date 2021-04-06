@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>皮肤动画</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../css/oksub.css">
+    <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+    <script src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
 </head>
 <body>
 <div class="ok-body">
@@ -40,8 +41,7 @@
         </div>
     </form>
 </div>
-<!--js逻辑-->
-<script src="../../lib/layui/layui.js"></script>
+
 <script>
     layui.use(["element", "form", "okLayer", "okUtils"], function () {
         let form = layui.form;

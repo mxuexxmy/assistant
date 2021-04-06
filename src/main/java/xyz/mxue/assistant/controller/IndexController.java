@@ -1,12 +1,26 @@
 package xyz.mxue.assistant.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.mxue.assistant.entity.User;
+import xyz.mxue.assistant.service.SysMachineService;
+import xyz.mxue.assistant.service.UserService;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
+ * 页面控制页
+ *
  * @author mxuexxmy
  * @ClassName IndexController
  * @Description TODO
@@ -19,77 +33,54 @@ public class IndexController {
 
     private String prefix = "pages";
 
-    // 登录页
-    @GetMapping
-    public String index() {
-        return prefix + "/login";
-    }
+    @Resource
+    private UserService userService;
 
-    // 首页
+    @Resource
+    private SysMachineService sysMachineService;
+
+    /**
+     * 首页
+     *
+     * @param map 返回信息集合
+     * @return 页面
+     */
     @GetMapping("/main")
-    public String indexSHow() {
+    public String indexSHow(ModelMap map) {
+        User user = userService.getById((Serializable) StpUtil.getLoginId());
+        map.put("user", user);
         return "index";
     }
 
-    // 控制台页
-    @GetMapping("/console")
-    public String console() {
-        return prefix + "/console";
-    }
-
-    // 系统设置页面
+    /**
+     * 系统设置页面
+     *
+     * @return String
+     */
     @GetMapping("/system/setting")
     public String systemSetting() {
         return prefix + "/system/setting";
     }
 
-    // 用户信息页面
-    @GetMapping("/user-info")
-    public String userInfo() {
-        return prefix + "/member/user-info";
-    }
 
-    // 用户信息修改页面
-    @GetMapping("/user-update")
-    public String userUpdate() {
-        return prefix + "/member/user-update";
-    }
-
-    // 修改密码页面
-    @GetMapping("/user-password")
-    public String updatePassword() {
-        return prefix + "/member/user-pwd";
-    }
-
-    // 学生列表页面
-    @GetMapping("/student-list")
-    public String studentList() {
-        return prefix + "/class/student-list";
-    }
-
-    // 皮肤动画
+    /**
+     * 皮肤动画
+     *
+     * @return String
+     */
     @GetMapping("/alert-skin")
     public String alertSkin() {
         return prefix + "/system/alertSkin";
     }
 
-    // 注册页面
-    @GetMapping("/register")
-    public String register() {
-        return prefix + "/register";
+    /**
+     * 系统信息页面
+     *
+     * @return String
+     */
+    @GetMapping("/system/info")
+    public String systemInfo(ModelMap map) {
+        map.put("systemInfo", sysMachineService.query());
+        return prefix + "/system/system-info";
     }
-
-    // 忘记密码页面
-    @GetMapping("/forget")
-    public String forget() {
-        return prefix + "/forget";
-    }
-
-    // 邮箱注册页面
-    @GetMapping("/register-email")
-    public String registerEmail() {
-        return prefix + "/register-email";
-    }
-
-
 }

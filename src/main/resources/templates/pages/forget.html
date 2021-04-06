@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="page-fill">
+<html lang="zh" class="page-fill" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>学委助手 | 忘记密码</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="../css/oksub.css"/>
-    <script type="text/javascript" src="../lib/loading/okLoading.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.ico"  th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/oksub.css" th:href="@{/css/oksub.css}"/>
+    <script type="text/javascript" src="../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <script src="../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
     <style>
         .forget .tit {
             padding-top: 15px;
@@ -63,8 +64,7 @@
             </div>
         </form>
     </div>
-    <!--js逻辑-->
-    <script src="../lib/layui/layui.js"></script>
+
     <script>
         layui.use(["form", "okLayer", "okUtils"], function () {
             let $ = layui.jquery;

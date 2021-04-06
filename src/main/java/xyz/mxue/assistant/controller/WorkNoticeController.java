@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-04
  */
 @RestController
-@RequestMapping("/assistant/work-notice")
+@RequestMapping("/work-notice")
 public class WorkNoticeController {
 
 }

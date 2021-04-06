@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<title>修改密码</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" href="../../css/oksub.css">
-	<script type="text/javascript" src="../../lib/loading/okLoading.js"></script>
+	<link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+	<script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+	<script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
 </head>
 <body class="childrenBody seting-pass">
 <form class="layui-form changePwd">
 	<div class="layui-form-item">
-		<label class="layui-form-label">姓名</label>
+		<label class="layui-form-label">用户名</label>
 		<div class="layui-input-block">
-			<input type="text" value="智走" disabled class="layui-input layui-disabled">
+			<input type="text" th:value="${user.nickName}" disabled class="layui-input layui-disabled">
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -41,7 +42,7 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="../../lib/layui/layui.js"></script>
+
 <script>
 	layui.use(['form', 'layer'], function () {
 		var form = layui.form,

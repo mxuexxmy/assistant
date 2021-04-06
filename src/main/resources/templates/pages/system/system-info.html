@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css" th:href="@{/lib/layui/css/layui.css}" media="all">
+    <script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">系统信息</div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <tbody>
+                        <tr>
+                            <td>系统名称：</td>
+                            <td>[[${systemInfo.sysOsInfo.osName}]]</td>
+                        </tr>
+                        <tr>
+                            <td>系统架构：</td>
+                            <td>[[${systemInfo.sysOsInfo.osArch}]]</td>
+                        </tr>
+                        <tr>
+                            <td>系统版本：</td>
+                            <td>[[${systemInfo.sysOsInfo.osVersion}]]</td>
+                        </tr>
+                        <tr>
+                            <td>主机名称：</td>
+                            <td>[[${systemInfo.sysOsInfo.osHostName}]]</td>
+                        </tr>
+                        <tr>
+                            <td>主机IP地址：</td>
+                            <td>[[${systemInfo.sysOsInfo.osHostAddress}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">Java信息</div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <tbody>
+                        <tr>
+                            <td>虚拟机名称：</td>
+                            <td>[[${systemInfo.sysJavaInfo.jvmName}]]</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟机版本：</td>
+                            <td>[[${systemInfo.sysJavaInfo.jvmVersion}]]</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟机供应商：</td>
+                            <td>[[${systemInfo.sysJavaInfo.jvmVendor}]]</td>
+                        </tr>
+                        <tr>
+                            <td>java名称：</td>
+                            <td>[[${systemInfo.sysJavaInfo.javaName}]]</td>
+                        </tr>
+                        <tr>
+                            <td>java版本：</td>
+                            <td>[[${systemInfo.sysJavaInfo.javaVersion}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+
+        <div class="layui-card">
+            <div class="layui-card-header">JVM内存信息</div>
+            <div class="layui-card-body">
+                <table class="layui-table">
+                    <tbody>
+                    <tr>
+                        <td>最大内存：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmMaxMemory}]]</td>
+                        <td>可用内存：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmUsableMemory}]]</td>
+                    </tr>
+                    <tr>
+                        <td>总内存：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmTotalMemory}]]</td>
+                        <td>已使用内存：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmUsedMemory}]]</td>
+                    </tr>
+                    <tr>
+                        <td>空余内存：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmFreeMemory}]]</td>
+                        <td>使用率：</td>
+                        <td>[[${systemInfo.sysJvmMemInfo.jvmMemoryUsedRate}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

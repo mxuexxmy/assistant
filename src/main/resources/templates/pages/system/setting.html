@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
    <meta charset="UTF-8">
    <title>系统设置</title>
    <!--<link rel="stylesheet" href="../../css/oksub.css">-->
    <link rel="stylesheet" href="../../css/okadmin.css" th:href="@{/css/okadmin.css}">
    <script type="text/javascript" src="../../js/okconfig.js" th:src="@{/js/okconfig.js}"></script>
+   <script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
    <style type="text/css">
       .ok-setting .layui-form-item {
          margin: 0;
@@ -60,7 +61,6 @@
    </form>
 </div>
 
-<script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
 <script type="text/javascript">
    layui.use(['jquery', 'form', 'okUtils'], function () {
       var $ = layui.jquery,
