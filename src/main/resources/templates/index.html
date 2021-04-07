@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="lib/loading/okLoading.css" th:href="@{/lib/loading/okLoading.css}"/>
     <script type="text/javascript" src="js/okconfig.js" th:src="@{/js/okconfig.js}"></script>
     <script type="text/javascript" src="lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <script src="lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+    <script src="js/okadmin.js" th:src="@{/js/okadmin.js}"></script>
 </head>
 <body class="layui-layout-body">
 <!-- 更换主体 Eg:orange_theme|blue_theme -->
@@ -125,7 +127,7 @@
                 <div class="layui-tab-item layui-show" th:switch="${user.adminType}">
                     <iframe th:case="'0'" th:src='@{/user/console-admin}' frameborder="0" scrolling="yes" width="100%"
                             height="100%"></iframe>
-                    <iframe th:case="'=1'" th:src='@{/user/console}' frameborder="0" scrolling="yes" width="100%"
+                    <iframe th:case="'1'" th:src='@{/user/console}' frameborder="0" scrolling="yes" width="100%"
                             height="100%"></iframe>
                 </div>
             </div>
@@ -138,7 +140,5 @@
     </div>
 </div>
 
-<script src="lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
-<script src="js/okadmin.js" th:src="@{/js/okadmin.js}"></script>
 </body>
 </html>
