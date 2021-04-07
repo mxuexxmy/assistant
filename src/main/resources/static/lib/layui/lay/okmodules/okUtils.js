@@ -50,7 +50,8 @@ layui.define(["layer"], function (exprots) {
       /**
        * 服务器地址
        */
-      baseUrl: "http://127.0.0.1:9000",
+       baseUrl: "http://127.0.0.1:9000",
+     // baseUrl: "http://mxue.xyz:9010",
       /**
        * 获取body的总宽度
        */
