@@ -7,15 +7,14 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import xyz.mxue.assistant.commons.constant.ConstantUtils;
 import xyz.mxue.assistant.commons.constant.ResultCode;
+import xyz.mxue.assistant.commons.enumeration.UserStatusEnum;
 import xyz.mxue.assistant.commons.utils.RegexUtils;
 import xyz.mxue.assistant.entity.User;
 import xyz.mxue.assistant.model.Result;
 import xyz.mxue.assistant.service.UserService;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -102,6 +101,15 @@ public class LoginController {
         if (user == null) {
             return StrUtil.isNotBlank(email) ? Result.failed("邮箱不存在！") : Result.failed("手机号不存在！");
         } else {
+
+            if (user.getStatus().equals(UserStatusEnum.FREEZE.getValue())) {
+                return Result.failed("你的账号被冻结, 请联系管理员！");
+            }
+
+            if (user.getStatus().equals(UserStatusEnum.DELETE.getValue())) {
+                return Result.failed("你的账号被删除，请联系管理员！");
+            }
+
             // 明文密码加密
             String md5Password = SecureUtil.md5(password);
             // 判断密码是否相等
