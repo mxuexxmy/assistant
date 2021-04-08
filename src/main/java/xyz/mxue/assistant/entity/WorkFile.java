@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-04-04
+ * @since 2021-04-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,11 +29,11 @@ public class WorkFile implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "作业编号")
-    private String workNumber;
+    @ApiModelProperty(value = "作业ID")
+    private Long workId;
 
-    @ApiModelProperty(value = "学号")
-    private String studentId;
+    @ApiModelProperty(value = "学生ID")
+    private Long studentId;
 
     @ApiModelProperty(value = "文件ID")
     private Long fileId;

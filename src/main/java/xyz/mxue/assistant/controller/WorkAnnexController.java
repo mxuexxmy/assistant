@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 班级 前端控制器
+ * 作业附件 前端控制器
  * </p>
  *
  * @author mxuexxmy
  * @since 2021-04-08
  */
 @Controller
-@RequestMapping("/class-info")
-public class ClassInfoController {
+@RequestMapping("/work-annex")
+public class WorkAnnexController {
 
 }
 

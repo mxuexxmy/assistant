@@ -13,9 +13,10 @@
         <result column="file_size_info" property="fileSizeInfo" />
         <result column="file_object_name" property="fileObjectName" />
         <result column="file_path" property="filePath" />
-        <result column="create_student" property="createStudent" />
         <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
 </mapper>

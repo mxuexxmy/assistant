@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-04-04
+ * @since 2021-04-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,13 +29,13 @@ public class FileInfo implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）")
+    @ApiModelProperty(value = "存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）")
     private Integer fileLocation;
 
     @ApiModelProperty(value = "文件仓库")
     private String fileBucket;
 
-    @ApiModelProperty(value = "文件名称（上传时候的文件名）")
+    @ApiModelProperty(value = "文件名称（上传时候的文件名)")
     private String fileOriginName;
 
     @ApiModelProperty(value = "文件后缀")
@@ -53,14 +53,17 @@ public class FileInfo implements Serializable {
     @ApiModelProperty(value = "存储路径")
     private String filePath;
 
-    @ApiModelProperty(value = "创建学生")
-    private Long createStudent;
-
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
+    @ApiModelProperty(value = "创建用户")
+    private Long createUser;
+
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
+
+    @ApiModelProperty(value = "修改用户")
+    private Long updateUser;
 
 
 }

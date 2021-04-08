@@ -6,9 +6,10 @@
     <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.WorkNotice">
         <id column="id" property="id" />
         <result column="student_id" property="studentId" />
-        <result column="work_number" property="workNumber" />
+        <result column="work_id" property="workId" />
         <result column="notice_subject" property="noticeSubject" />
         <result column="notice_content" property="noticeContent" />
+        <result column="is_look" property="isLook" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>

@@ -54,10 +54,9 @@
                     [[${user.nickName}]]
                 </a>
                 <dl id="userInfo" class="layui-nav-child" th:switch="${user.adminType}">
-                    <!-- 管理员 -->
-                    <dd  th:case="'0'"><a lay-id="u-1" href="javascript:" data-url="/user/info-admin">个人中心</a></dd>
+                    <dd ><a lay-id="u-1" href="javascript:" data-url="/user/info">个人中心</a></dd>
                     <!-- 非管理员 -->
-                    <dd  th:case="'1'"><a lay-id="u-1" href="javascript:" data-url="/user/info">个人中心</a></dd>
+                    <dd  th:case="'1'"><a lay-id="u-1" href="javascript:" data-url="/user/info">班级中心</a></dd>
                     <dd><a lay-id="u-3" href="javascript:" data-url="/user/password">安全设置</a></dd>
                     <dd><a lay-id="u-4" href="javascript:" id="alertSkin">皮肤动画</a></dd>
                     <dd>

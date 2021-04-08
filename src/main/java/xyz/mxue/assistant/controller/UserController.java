@@ -89,11 +89,11 @@ public class UserController {
      * @param map 返回集合
      * @return String
      */
-    @GetMapping("/info-admin")
+    @GetMapping("/info")
     public String userInfo(ModelMap map) {
         User user = userService.getById((Serializable) StpUtil.getLoginId());
         map.put("user", user);
-        return prefix + "/member/user-info-admin";
+        return prefix + "/member/info";
     }
 
     /**
@@ -131,7 +131,7 @@ public class UserController {
     public String password(ModelMap map) {
         User user = userService.getById((Serializable) StpUtil.getLoginId());
         map.put("user", user);
-        return prefix + "/member/user-pwd";
+        return prefix + "/member/pwd";
     }
 
     /**

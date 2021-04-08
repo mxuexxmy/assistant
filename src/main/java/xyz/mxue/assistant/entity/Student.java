@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author mxuexxmy
- * @since 2021-04-04
+ * @since 2021-04-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -42,7 +42,10 @@ public class Student implements Serializable {
     private String classNo;
 
     @ApiModelProperty(value = "1表示学委，2表示学委助理，3表示普通学生")
-    private Integer studentType;
+    private String studentType;
+
+    @ApiModelProperty(value = "1是当前账号，2是以前账号，3被删除账号 ")
+    private Integer isNow;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;

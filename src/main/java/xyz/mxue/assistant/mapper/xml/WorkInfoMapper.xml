@@ -5,10 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.WorkInfo">
         <id column="id" property="id" />
-        <result column="studnet_id" property="studnetId" />
-        <result column="work_number" property="workNumber" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <result column="student_id" property="studentId" />
         <result column="work_course" property="workCourse" />
         <result column="work_title" property="workTitle" />
         <result column="work_contant" property="workContant" />
@@ -16,8 +13,8 @@
         <result column="end_time" property="endTime" />
         <result column="work_type" property="workType" />
         <result column="work_status" property="workStatus" />
-        <result column="work_annex" property="workAnnex" />
-        <result column="work_picture" property="workPicture" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
 </mapper>

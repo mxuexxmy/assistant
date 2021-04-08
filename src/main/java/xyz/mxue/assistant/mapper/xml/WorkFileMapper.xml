@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.WorkFile">
         <id column="id" property="id" />
-        <result column="work_number" property="workNumber" />
+        <result column="work_id" property="workId" />
         <result column="student_id" property="studentId" />
         <result column="file_id" property="fileId" />
         <result column="create_time" property="createTime" />

@@ -56,7 +56,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude();
+        strategy.setInclude("tb_work_submit", "tb_work_notice", "tb_work_info", "tb_work_file", "tb_work_annex", "tb_student", "tb_course_info", "tb_class_info", "tb_class_file", "sys_file_info");
 
         strategy.setNaming(NamingStrategy.underline_to_camel); // 数据库表映射到实体的命名策略
         strategy.setTablePrefix("tb_","sys_"); // 生成实体是去掉表前缀
@@ -64,7 +64,7 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel); // 数据库表字段映射到实体的命名策略
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain=true) setter 链式操作
 
-        strategy.setRestControllerStyle(true); // restful api 风格
+        strategy.setRestControllerStyle(false); // restful api 风格
         strategy.setControllerMappingHyphenStyle(true); // url中驼峰转连字符
         mpg.setStrategy(strategy);
 

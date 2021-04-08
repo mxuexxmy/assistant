@@ -108,7 +108,45 @@ public class NavsController {
      */
     private String academicCommittee() {
         String navs = new String();
-
+        navs = "[\n" +
+                "    {\n" +
+                "        \"title\": \"控制台\",\n" +
+                "        \"href\": \"/user/console-admin\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe654;\",\n" +
+                "        \"spread\": true,\n" +
+                "        \"isCheck\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"用户管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"icon\": \"&#xe66f;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"用户列表\",\n" +
+                "                \"href\": \"/user/list-page\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"系统监控\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"服务监控\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "]";
         return navs;
     }
 
@@ -118,7 +156,45 @@ public class NavsController {
      */
     private String assistant() {
         String navs = new String();
-
+        navs = "[\n" +
+                "    {\n" +
+                "        \"title\": \"控制台\",\n" +
+                "        \"href\": \"/user/console-admin\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe654;\",\n" +
+                "        \"spread\": true,\n" +
+                "        \"isCheck\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"用户管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"icon\": \"&#xe66f;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"用户列表\",\n" +
+                "                \"href\": \"/user/list-page\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"系统监控\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"服务监控\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "]";
         return navs;
     }
 
@@ -128,7 +204,45 @@ public class NavsController {
      */
     private String generalStudent() {
         String navs = new String();
-
+        navs = "[\n" +
+                "    {\n" +
+                "        \"title\": \"控制台\",\n" +
+                "        \"href\": \"/user/console-admin\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe654;\",\n" +
+                "        \"spread\": true,\n" +
+                "        \"isCheck\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"用户管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"icon\": \"&#xe66f;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"用户列表\",\n" +
+                "                \"href\": \"/user/list-page\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"系统监控\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"服务监控\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "]";
         return navs;
     }
 }
