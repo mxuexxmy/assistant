@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface StudentService extends IService<Student> {
 
+    Integer getStudentType(Long userId, Integer classIsNow);
+
 }

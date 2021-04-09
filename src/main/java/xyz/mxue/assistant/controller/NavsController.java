@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.mxue.assistant.commons.enumeration.AdminTypeEnum;
+import xyz.mxue.assistant.commons.enumeration.ClassIsNowEnum;
 import xyz.mxue.assistant.commons.enumeration.StudentTypeEnum;
 import xyz.mxue.assistant.entity.Student;
 import xyz.mxue.assistant.entity.User;
@@ -14,6 +15,7 @@ import xyz.mxue.assistant.service.UserService;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author mxuexxmy
@@ -22,6 +24,8 @@ import java.io.Serializable;
 @RestController
 @RequestMapping("navs")
 public class NavsController {
+
+    private String navs;
 
     @Resource
     private UserService userService;
@@ -36,15 +40,18 @@ public class NavsController {
         if (user.getAdminType().equals(AdminTypeEnum.SUPER_ADMIN.getValue())) {
             return admin();
         }
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        Student student = studentService.getOne(queryWrapper);
+
+        Integer studentType = studentService.getStudentType(StpUtil.getLoginIdAsLong(), ClassIsNowEnum.IS_NOW.getValue());
+        if (Objects.isNull(studentType))
+            return generalStudent();
+
         // 学委
-        if (student.getStudentType().equals(StudentTypeEnum.ACADEMIC_COMMITTEE.getValue())) {
+        if (studentType.equals(StudentTypeEnum.ACADEMIC_COMMITTEE.getValue())) {
             return academicCommittee();
         }
 
         // 学委助理
-        if (student.getStudentType().equals(StudentTypeEnum.ACADEMIC_COMMITTEE_ASSISTANT.getValue())) {
+        if (studentType.equals(StudentTypeEnum.ACADEMIC_COMMITTEE_ASSISTANT.getValue())) {
             return assistant();
         }
 
@@ -58,7 +65,6 @@ public class NavsController {
      * @return string
      */
     private String admin() {
-        String navs = new String();
         navs = "[\n" +
                 "    {\n" +
                 "        \"title\": \"控制台\",\n" +
@@ -107,7 +113,6 @@ public class NavsController {
      * @return String
      */
     private String academicCommittee() {
-        String navs = new String();
         navs = "[\n" +
                 "    {\n" +
                 "        \"title\": \"控制台\",\n" +
@@ -118,13 +123,49 @@ public class NavsController {
                 "        \"isCheck\": true\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"用户管理\",\n" +
+                "        \"title\": \"作业管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"作业列表\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"通知管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"班级通知\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"title\": \"作业提醒\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"学生管理\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"icon\": \"&#xe66f;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"用户列表\",\n" +
+                "                \"title\": \"学生列表\",\n" +
                 "                \"href\": \"/user/list-page\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
@@ -132,14 +173,29 @@ public class NavsController {
                 "        ]\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"系统监控\",\n" +
+                "        \"title\": \"班级管理\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"fontFamily\": \"ok-icon\",\n" +
                 "        \"icon\": \"&#xe68a;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"服务监控\",\n" +
+                "                \"title\": \"班级信息\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"文件管理\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"文件列表\",\n" +
                 "                \"href\": \"/system/info\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
@@ -151,11 +207,10 @@ public class NavsController {
     }
 
     /**
-     * 学委助手菜单
+     * 学委助理菜单
      * @return String
      */
     private String assistant() {
-        String navs = new String();
         navs = "[\n" +
                 "    {\n" +
                 "        \"title\": \"控制台\",\n" +
@@ -166,13 +221,13 @@ public class NavsController {
                 "        \"isCheck\": true\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"用户管理\",\n" +
+                "        \"title\": \"作业管理\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"icon\": \"&#xe66f;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"用户列表\",\n" +
+                "                \"title\": \"作业列表\",\n" +
                 "                \"href\": \"/user/list-page\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
@@ -180,14 +235,35 @@ public class NavsController {
                 "        ]\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"系统监控\",\n" +
+                "        \"title\": \"班级文件\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"fontFamily\": \"ok-icon\",\n" +
                 "        \"icon\": \"&#xe68a;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"服务监控\",\n" +
+                "                \"title\": \"文件列表\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"班级通知\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"班级公告\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"title\": \"作业提醒\",\n" +
                 "                \"href\": \"/system/info\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
@@ -203,24 +279,23 @@ public class NavsController {
      * @return
      */
     private String generalStudent() {
-        String navs = new String();
         navs = "[\n" +
                 "    {\n" +
                 "        \"title\": \"控制台\",\n" +
-                "        \"href\": \"/user/console-admin\",\n" +
+                "        \"href\": \"/user/console\",\n" +
                 "        \"fontFamily\": \"ok-icon\",\n" +
                 "        \"icon\": \"&#xe654;\",\n" +
                 "        \"spread\": true,\n" +
                 "        \"isCheck\": true\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"用户管理\",\n" +
+                "        \"title\": \"作业管理\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"icon\": \"&#xe66f;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"用户列表\",\n" +
+                "                \"title\": \"作业列表\",\n" +
                 "                \"href\": \"/user/list-page\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
@@ -228,14 +303,35 @@ public class NavsController {
                 "        ]\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"系统监控\",\n" +
+                "        \"title\": \"班级文件\",\n" +
                 "        \"href\": \"\",\n" +
                 "        \"fontFamily\": \"ok-icon\",\n" +
                 "        \"icon\": \"&#xe68a;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
-                "                \"title\": \"服务监控\",\n" +
+                "                \"title\": \"文件列表\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"班级通知\",\n" +
+                "        \"href\": \"\",\n" +
+                "        \"fontFamily\": \"ok-icon\",\n" +
+                "        \"icon\": \"&#xe68a;\",\n" +
+                "        \"spread\": false,\n" +
+                "        \"children\": [\n" +
+                "            {\n" +
+                "                \"title\": \"班级公告\",\n" +
+                "                \"href\": \"/system/info\",\n" +
+                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"spread\": false\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"title\": \"作业提醒\",\n" +
                 "                \"href\": \"/system/info\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +

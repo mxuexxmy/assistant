@@ -2,36 +2,34 @@ package xyz.mxue.assistant.commons.enumeration;
 
 import lombok.Getter;
 
-import java.io.Serializable;
-
 /**
  * @author mxuexxmy
- * @date 4/4/2021$ 4:40 PM$
+ * @date 4/9/2021$ 2:52 PM$
  */
 @Getter
-public enum SexEnum implements Serializable {
-
-
-    /**
-     * 1男
-     */
-    MALE(1, "男"),
+public enum ClassIsNowEnum {
 
     /**
-     * 2女
+     * 1 当前班级
      */
-    FEMALE(2, "女"),
+    IS_NOW(1, "当前账号"),
 
     /**
-     * 3 未知
+     * 2 以前的班级
      */
-    UNKNOWN(3, "未知");
+    PREVIOUS(2, "以前的班级"),
+
+    /**
+     * 3 删除的班级
+     */
+    DELETE(3, "删除的班级");
 
     private final Integer value;
     private final String desc;
 
-    SexEnum(Integer value, String desc) {
+    ClassIsNowEnum(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }
+
 }

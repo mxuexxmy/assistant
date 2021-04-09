@@ -2,6 +2,9 @@ package xyz.mxue.assistant.service;
 
 import xyz.mxue.assistant.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import xyz.mxue.assistant.model.vo.UserAndStudentInfoVO;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
+
+    UserAndStudentInfoVO getUserAndStudentType(Serializable loginId);
 }
+

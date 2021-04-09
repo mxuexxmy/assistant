@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import xyz.mxue.assistant.commons.enumeration.StudentTypeEnum;
 import xyz.mxue.assistant.commons.enumeration.UserStatusEnum;
 import xyz.mxue.assistant.entity.User;
 import xyz.mxue.assistant.model.PageResult;
 import xyz.mxue.assistant.model.Result;
+import xyz.mxue.assistant.model.vo.UserAndStudentInfoVO;
 import xyz.mxue.assistant.service.UserService;
 
 import javax.annotation.Resource;
@@ -97,6 +99,21 @@ public class UserController {
     }
 
     /**
+     * 学生个人信息中心
+     *
+     * @param map 规划集合
+     * @return String
+     */
+    @GetMapping("/student-info")
+    public String studentInfo(ModelMap map) {
+        UserAndStudentInfoVO userAndStudentInfoVO = userService.getUserAndStudentType((Serializable) StpUtil.getLoginId());
+        if (Objects.isNull(userAndStudentInfoVO.getStudentType()))
+            userAndStudentInfoVO.setStudentType(StudentTypeEnum.GENERAL_STUDENT.getValue());
+        map.put("user", userAndStudentInfoVO);
+        return prefix + "/member/student-info";
+    }
+
+    /**
      * 修改个人信息-保存
      *
      * @param user 用户信息
@@ -105,7 +122,6 @@ public class UserController {
     @PostMapping("/update-user-info")
     @ResponseBody
     public Result<String> updateUserInfo(User user) {
-        System.out.println("user:" + user);
         boolean b = userService.updateById(user);
         return b == true ? Result.succeed("修改成功！") : Result.failed("修改失败！");
     }
@@ -135,7 +151,7 @@ public class UserController {
     }
 
     /**
-     *  添加用户页面
+     * 添加用户页面
      *
      * @return String
      */
@@ -146,6 +162,7 @@ public class UserController {
 
     /**
      * 保存用户信息
+     *
      * @param user 用户信息
      * @return Result<String>
      */

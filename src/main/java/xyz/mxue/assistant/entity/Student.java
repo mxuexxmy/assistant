@@ -1,9 +1,8 @@
 package xyz.mxue.assistant.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,19 +37,18 @@ public class Student implements Serializable {
     @ApiModelProperty(value = "学号")
     private String studentNo;
 
-    @ApiModelProperty(value = "班级编号")
-    private String classNo;
+    @ApiModelProperty(value = "班级ID")
+    private Long classId;
 
     @ApiModelProperty(value = "1表示学委，2表示学委助理，3表示普通学生")
-    private String studentType;
-
-    @ApiModelProperty(value = "1是当前账号，2是以前账号，3被删除账号 ")
-    private Integer isNow;
+    private Integer studentType;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField( fill = FieldFill.INSERT)
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField( fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
 

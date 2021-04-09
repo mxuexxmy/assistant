@@ -2,36 +2,29 @@ package xyz.mxue.assistant.commons.enumeration;
 
 import lombok.Getter;
 
-import java.io.Serializable;
-
 /**
  * @author mxuexxmy
- * @date 4/4/2021$ 4:40 PM$
+ * @date 4/9/2021$ 3:00 PM$
  */
 @Getter
-public enum SexEnum implements Serializable {
-
+public enum AnnexTypeEnum {
 
     /**
-     * 1男
+     * 0 未查看
      */
-    MALE(1, "男"),
+    ANNEX(0, "未查看"),
 
     /**
      * 2女
      */
-    FEMALE(2, "女"),
-
-    /**
-     * 3 未知
-     */
-    UNKNOWN(3, "未知");
+    IMAGE(1, "已查看");
 
     private final Integer value;
     private final String desc;
 
-    SexEnum(Integer value, String desc) {
+    AnnexTypeEnum(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }
+
 }

@@ -1,7 +1,11 @@
 package xyz.mxue.assistant.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import xyz.mxue.assistant.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import xyz.mxue.assistant.model.vo.UserAndStudentInfoVO;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    UserAndStudentInfoVO getUserAndStudentType(@Param("loginId") Serializable loginId);
 }

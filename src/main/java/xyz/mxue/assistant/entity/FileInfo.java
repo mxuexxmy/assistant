@@ -1,9 +1,8 @@
 package xyz.mxue.assistant.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,17 +52,19 @@ public class FileInfo implements Serializable {
     @ApiModelProperty(value = "存储路径")
     private String filePath;
 
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
     @ApiModelProperty(value = "创建用户")
     private Long createUser;
 
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
-
     @ApiModelProperty(value = "修改用户")
     private Long updateUser;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField( fill = FieldFill.INSERT)
+    private Date createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField( fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
 
 }

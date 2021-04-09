@@ -1,5 +1,6 @@
 package xyz.mxue.assistant.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import xyz.mxue.assistant.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface StudentMapper extends BaseMapper<Student> {
 
+    Integer getStudentType(@Param("userId") Long userId, @Param("classIsNow")Integer classIsNow);
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加班级</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+    <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <script src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+<div class="ok-body">
+    <form class="layui-form layui-form-pane ok-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">学校名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="school" placeholder="请输入学校名称" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所学学院</label>
+            <div class="layui-input-block">
+                <input type="text" name="college" placeholder="请输入学院名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在年级</label>
+            <div class="layui-input-block">
+                <input type="text" name="grade" placeholder="请输入年级名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在专业</label>
+            <div class="layui-input-block">
+                <input type="text" name="profession" placeholder="请输入专业名称" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在班级</label>
+            <div class="layui-input-block">
+                <input type="text" name="className" placeholder="请输入班级名称" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">班级密钥</label>
+            <div class="layui-input-block">
+                <input type="text" name="classKey" placeholder="同学们加入此班级的密钥" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="add">创建班级</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(["element", "form", "okLayer", "okUtils"], function () {
+        let form = layui.form;
+        let okLayer = layui.okLayer;
+        let okUtils = layui.okUtils;
+
+        okLoading.close();
+
+        form.on("submit(add)", function (data) {
+            okUtils.ajax("/class-info/save-new-class", "post", data.field, true).done(function (response) {
+                okLayer.greenTickMsg(response.msg, function () {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                });
+            }).fail(function (error) {
+                console.log(error)
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
