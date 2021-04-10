@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 @RequestMapping("/class-info")
 public class ClassInfoController {
 
-    private String prefix = "pages/class";
+    private final String prefix = "pages/class";
 
     @Resource
     private ClassInfoService classInfoService;
@@ -48,16 +48,15 @@ public class ClassInfoController {
      */
     @GetMapping("/info-page")
     public String studentInfoPage(ModelMap map) {
-        QueryWrapper<ClassInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", StpUtil.getLoginIdAsLong())
-                .eq("is_now", ClassIsNowEnum.IS_NOW.getValue());
-        ClassInfo classInfo = classInfoService.getOne(queryWrapper);
-        map.put("classInfo", classInfo);
-        if (classInfo != null) {
-            map.put("student", studentService.getById(classInfo.getId()));
-        } else {
-            map.put("student", null);
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", StpUtil.getLoginIdAsLong());
+        Student student = studentService.getOne(queryWrapper);
+        ClassInfo classInfo = null;
+        if (student != null) {
+            classInfo = classInfoService.getById(student.getClassId());
         }
+        map.put("classInfo", classInfo);
+        map.put("student", student);
         return prefix + "/info";
     }
 
@@ -107,7 +106,7 @@ public class ClassInfoController {
             classInfo.setStudentId(student.getId());
             classInfoService.updateById(classInfo);
         }
-        return save == true ? Result.succeed("创建班级成功！") : Result.failed("创建班级失败！");
+        return save ? Result.succeed("创建班级成功！") : Result.failed("创建班级失败！");
     }
 
     /**
@@ -145,14 +144,14 @@ public class ClassInfoController {
         ClassInfo classInfo1 = classInfoService.getOne(queryWrapper);
         if (classInfo1 != null) {
             Student student = new Student();
-            student.setUserId(classInfo1.getUserId());
+            student.setUserId(StpUtil.getLoginIdAsLong());
             student.setClassId(classInfo1.getId());
             student.setStudentType(StudentTypeEnum.GENERAL_STUDENT.getValue());
             // 保存当前加入的班级
             save = studentService.save(student);
         }
 
-        return save == true ? Result.succeed("加入班级成功！") : Result.failed("你填写的消息有误");
+        return save ? Result.succeed("加入班级成功！") : Result.failed("班级不存在！");
     }
 
     /**
@@ -180,7 +179,7 @@ public class ClassInfoController {
     @ResponseBody
     public Result<String> saveEditClassInfo(ClassInfo classInfo) {
         boolean b = classInfoService.updateById(classInfo);
-        return b == true ? Result.succeed("修改班级信息成功！") : Result.failed("修改班级信息失败！");
+        return b ? Result.succeed("修改班级信息成功！") : Result.failed("修改班级信息失败！");
     }
 
     /**

@@ -38,7 +38,7 @@ import java.util.Objects;
 @RequestMapping("/user")
 public class UserController {
 
-    private String prefix = "pages";
+    private final String prefix = "/pages";
 
     @Resource
     private UserService userService;
@@ -123,7 +123,7 @@ public class UserController {
     @ResponseBody
     public Result<String> updateUserInfo(User user) {
         boolean b = userService.updateById(user);
-        return b == true ? Result.succeed("修改成功！") : Result.failed("修改失败！");
+        return b  ? Result.succeed("修改成功！") : Result.failed("修改失败！");
     }
 
     /**
@@ -171,10 +171,8 @@ public class UserController {
     public Result<String> savaUserInfo(User user) {
         user.setStatus(UserStatusEnum.NORMAL.getValue());
         user.setPassword(SecureUtil.md5(user.getPassword()));
-        user.setCreateTime(new Date());
-        user.setUpdateTime(new Date());
         boolean save = userService.save(user);
-        return save == true ? Result.succeed("添加用户成功！") : Result.failed("添加用户失败!");
+        return save ? Result.succeed("添加用户成功！") : Result.failed("添加用户失败!");
     }
 
     /**
@@ -204,7 +202,7 @@ public class UserController {
         }
         user.setUpdateTime(new Date());
         boolean b = userService.updateById(user);
-        return b == true ? Result.succeed("用户信息修改成功！") : Result.failed("用户信息修改失败！");
+        return b ? Result.succeed("用户信息修改成功！") : Result.failed("用户信息修改失败！");
     }
 
     /**
@@ -219,7 +217,7 @@ public class UserController {
         User user = userService.getById(id);
         user.setStatus(UserStatusEnum.DELETE.getValue());
         boolean b = userService.updateById(user);
-        return b == true ? Result.succeed("用户删除成功！") : Result.failed("用户已删除！");
+        return b ? Result.succeed("用户删除成功！") : Result.failed("用户已删除！");
     }
 
     /**
@@ -236,7 +234,7 @@ public class UserController {
             user.setStatus(UserStatusEnum.DELETE.getValue());
         }
         boolean b = userService.updateBatchById(userList);
-        return b == true ? Result.succeed("批量删除成功！") : Result.failed("批量删除失败！");
+        return b ? Result.succeed("批量删除成功！") : Result.failed("批量删除失败！");
     }
 
     /**
@@ -253,7 +251,7 @@ public class UserController {
             user.setStatus(UserStatusEnum.NORMAL.getValue());
         }
         boolean b = userService.updateBatchById(userList);
-        return b == true ? Result.succeed("批量正常成功！") : Result.failed("批量正常失败！");
+        return b  ? Result.succeed("批量正常成功！") : Result.failed("批量正常失败！");
 
     }
 
@@ -271,7 +269,7 @@ public class UserController {
             user.setStatus(UserStatusEnum.FREEZE.getValue());
         }
         boolean b = userService.updateBatchById(userList);
-        return b == true ? Result.succeed("批量冻结成功！") : Result.failed("批量冻结失败！");
+        return b ? Result.succeed("批量冻结成功！") : Result.failed("批量冻结失败！");
     }
 
 
@@ -297,7 +295,7 @@ public class UserController {
         if (b) {
             StpUtil.logout();
         }
-        return b == true ? Result.succeed("密码修改成功！") : Result.failed("密码修改失败！");
+        return b ? Result.succeed("密码修改成功！") : Result.failed("密码修改失败！");
     }
 
     /**
