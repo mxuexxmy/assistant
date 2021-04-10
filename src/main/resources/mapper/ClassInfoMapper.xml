@@ -18,11 +18,18 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getClassInfoList" resultType="xyz.mxue.assistant.model.vo.ChangeClassInfoVO">
-        SELECT b.class_name
-        FROM tb_student a
-                 LEFT JOIN tb_class_info b ON a.class_id = b.id
-        WHERE a.user_id = #{userId}
-          AND b.is_now = #{isNow}
+        SELECT
+            b.id,
+            b.school,
+            b.college,
+            b.grade,
+            b.class_name
+        FROM
+            tb_student a
+                LEFT JOIN tb_class_info b ON a.class_id = b.id
+        WHERE
+            a.user_id = #{userId}
+          AND b.is_now != #{isNow}
     </select>
 
 </mapper>

@@ -1,9 +1,14 @@
 package xyz.mxue.assistant.model.vo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author mxuexxmy
@@ -14,13 +19,21 @@ public class ChangeClassInfoVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "班级ID")
-    private Long classId;
 
-    @ApiModelProperty(value = "学生学号")
-    private String studentNo;
+    @TableId(value = "id")
+    private Long id;
 
-    @ApiModelProperty(value = "班级名称")
+    @ApiModelProperty(value = "学校名")
+    private String school;
+
+    @ApiModelProperty(value = "学院")
+    private String college;
+
+    @ApiModelProperty(value = "年级")
+    private String grade;
+
+    @ApiModelProperty(value = "班名")
     private String className;
+
 
 }

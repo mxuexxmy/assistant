@@ -192,7 +192,7 @@ public class ClassInfoController {
     @GetMapping("/change-class-page")
     public String changeClassInfo(ModelMap map) {
         Long userId = StpUtil.getLoginIdAsLong();
-        map.put("classList", classInfoService.getClassInfoList(userId, ClassIsNowEnum.PREVIOUS.getValue()));
+        map.put("classList", classInfoService.getClassInfoList(userId, ClassIsNowEnum.DELETE.getValue()));
         return prefix + "/change";
     }
 }

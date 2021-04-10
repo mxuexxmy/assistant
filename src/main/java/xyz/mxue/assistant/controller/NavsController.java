@@ -41,22 +41,7 @@ public class NavsController {
             return admin();
         }
 
-        Integer studentType = studentService.getStudentType(StpUtil.getLoginIdAsLong(), ClassIsNowEnum.IS_NOW.getValue());
-        if (Objects.isNull(studentType))
-            return generalStudent();
-
-        // 学委
-        if (studentType.equals(StudentTypeEnum.ACADEMIC_COMMITTEE.getValue())) {
-            return academicCommittee();
-        }
-
-        // 学委助理
-        if (studentType.equals(StudentTypeEnum.ACADEMIC_COMMITTEE_ASSISTANT.getValue())) {
-            return assistant();
-        }
-
-        // 普通学生
-        return generalStudent();
+        return assistant();
     }
 
     /**
@@ -108,146 +93,43 @@ public class NavsController {
     }
 
     /**
-     * 学委菜单
+     * 非管理员菜单
      *
-     * @return String
-     */
-    private String academicCommittee() {
-        navs = "[\n" +
-                "    {\n" +
-                "        \"title\": \"控制台\",\n" +
-                "        \"href\": \"/user/console-admin\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe654;\",\n" +
-                "        \"spread\": true,\n" +
-                "        \"isCheck\": true\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"作业管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"作业列表\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"通知管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"班级通知\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"title\": \"作业提醒\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"学生管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"icon\": \"&#xe66f;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"学生列表\",\n" +
-                "                \"href\": \"/user/list-page\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"班级管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"班级信息\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"文件管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"文件列表\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "]";
-        return navs;
-    }
-
-    /**
-     * 学委助理菜单
      * @return String
      */
     private String assistant() {
         navs = "[\n" +
                 "    {\n" +
                 "        \"title\": \"控制台\",\n" +
-                "        \"href\": \"/user/console-admin\",\n" +
+                "        \"href\": \"pages/console.html\",\n" +
                 "        \"fontFamily\": \"ok-icon\",\n" +
                 "        \"icon\": \"&#xe654;\",\n" +
                 "        \"spread\": true,\n" +
                 "        \"isCheck\": true\n" +
                 "    },\n" +
                 "    {\n" +
-                "        \"title\": \"作业管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"icon\": \"&#xe66f;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"作业列表\",\n" +
-                "                \"href\": \"/user/list-page\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
+                "        \"title\": \"班级作业\",\n" +
+                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"icon\": \"&#xe665;\",\n" +
+                "        \"spread\": true\n" +
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"班级文件\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"文件列表\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
+                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"icon\": \"&#xe665;\",\n" +
+                "        \"spread\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"班级管理\",\n" +
+                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"icon\": \"&#xe665;\",\n" +
+                "        \"spread\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"title\": \"成员管理\",\n" +
+                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"icon\": \"&#xe665;\",\n" +
+                "        \"spread\": true\n" +
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"班级通知\",\n" +
@@ -274,71 +156,5 @@ public class NavsController {
         return navs;
     }
 
-    /**
-     * 普通学生菜单
-     * @return
-     */
-    private String generalStudent() {
-        navs = "[\n" +
-                "    {\n" +
-                "        \"title\": \"控制台\",\n" +
-                "        \"href\": \"/user/console\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe654;\",\n" +
-                "        \"spread\": true,\n" +
-                "        \"isCheck\": true\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"作业管理\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"icon\": \"&#xe66f;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"作业列表\",\n" +
-                "                \"href\": \"/user/list-page\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"班级文件\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"文件列表\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"title\": \"班级通知\",\n" +
-                "        \"href\": \"\",\n" +
-                "        \"fontFamily\": \"ok-icon\",\n" +
-                "        \"icon\": \"&#xe68a;\",\n" +
-                "        \"spread\": false,\n" +
-                "        \"children\": [\n" +
-                "            {\n" +
-                "                \"title\": \"班级公告\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"title\": \"作业提醒\",\n" +
-                "                \"href\": \"/system/info\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
-                "                \"spread\": false\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "]";
-        return navs;
-    }
+
 }
