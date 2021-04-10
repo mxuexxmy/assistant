@@ -45,6 +45,36 @@
         </div>
 
         <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <select name="adminType" th:if="${userInfo.status == 0}" >
+                    <option value="0">正常</option>
+                    <option value="1">冻结</option>
+                    <option value="2">删除</option>
+                </select>
+
+                <select name="adminType" th:if="${userInfo.adminType == 1}" >
+                    <option value="1">冻结</option>
+                    <option value="0">正常</option>
+                    <option value="2">删除</option>
+                </select>
+
+                <select name="adminType" th:if="${userInfo.adminType == 2}" >
+                    <option value="2">删除</option>
+                    <option value="0">正常</option>
+                    <option value="1">冻结</option>
+                </select>
+
+                <select name="adminType" th:if="${userInfo.adminType == null}" >
+                    <option value="0">正常</option>
+                    <option value="1">冻结</option>
+                    <option value="2">删除</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
             <label class="layui-form-label">角色</label>
             <div class="layui-input-block">
                 <select name="adminType" th:if="${userInfo.adminType == 0}" >

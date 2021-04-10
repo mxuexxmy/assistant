@@ -108,6 +108,7 @@ public class LoginController {
         queryWrapper.eq(StrUtil.isNotBlank(email), "email", email)
                 .eq(StrUtil.isNotBlank(phone), "phone", userInfo);
         User user = userService.getOne(queryWrapper);
+        System.out.println(user);
         if (user == null) {
             return StrUtil.isNotBlank(email) ? Result.failed("邮箱不存在！") : Result.failed("手机号不存在！");
         } else {

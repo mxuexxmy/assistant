@@ -123,19 +123,7 @@ public class UserController {
     @ResponseBody
     public Result<String> updateUserInfo(User user) {
         boolean b = userService.updateById(user);
-        return b  ? Result.succeed("修改成功！") : Result.failed("修改失败！");
-    }
-
-    /**
-     * 用户注册
-     *
-     * @param user 用户信息
-     * @return Result<String>
-     */
-    @PostMapping("/register")
-    @ResponseBody
-    public Result<String> register(User user) {
-        return Result.succeed("注册成功");
+        return b ? Result.succeed("修改成功！") : Result.failed("修改失败！");
     }
 
     /**
@@ -251,7 +239,7 @@ public class UserController {
             user.setStatus(UserStatusEnum.NORMAL.getValue());
         }
         boolean b = userService.updateBatchById(userList);
-        return b  ? Result.succeed("批量正常成功！") : Result.failed("批量正常失败！");
+        return b ? Result.succeed("批量正常成功！") : Result.failed("批量正常失败！");
 
     }
 
@@ -318,7 +306,8 @@ public class UserController {
                 .like(StrUtil.isNotBlank(user.getEmail()), "email", user.getEmail())
                 .eq(Objects.nonNull(user.getAdminType()), "admin_type", user.getAdminType())
                 .eq(Objects.nonNull(user.getSex()), "sex", user.getSex())
-                .eq(Objects.nonNull(user.getStatus()), "status", user.getStatus());
+                .eq(Objects.nonNull(user.getStatus()), "status", user.getStatus())
+                .orderByDesc("update_time");
         return PageResult.succeed(userService.page(page, queryWrapper));
     }
 

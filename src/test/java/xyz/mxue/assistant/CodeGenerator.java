@@ -56,7 +56,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("tb_work_submit", "tb_work_notice", "tb_work_info", "tb_work_file", "tb_work_annex", "tb_student", "tb_course_info", "tb_class_info", "tb_class_file", "sys_file_info");
+        strategy.setInclude("tb_social_user_auth");
 
         strategy.setNaming(NamingStrategy.underline_to_camel); // 数据库表映射到实体的命名策略
         strategy.setTablePrefix("tb_","sys_"); // 生成实体是去掉表前缀
