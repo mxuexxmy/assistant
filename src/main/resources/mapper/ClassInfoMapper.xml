@@ -18,18 +18,30 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getClassInfoList" resultType="xyz.mxue.assistant.model.vo.ChangeClassInfoVO">
-        SELECT
-            b.id,
-            b.school,
-            b.college,
-            b.grade,
-            b.class_name
-        FROM
-            tb_student a
-                LEFT JOIN tb_class_info b ON a.class_id = b.id
-        WHERE
-            a.user_id = #{userId}
+        SELECT b.id,
+               b.school,
+               b.college,
+               b.grade,
+               b.class_name
+        FROM tb_student a
+                 LEFT JOIN tb_class_info b ON a.class_id = b.id
+        WHERE a.user_id = #{userId}
           AND b.is_now != #{isNow}
+    </select>
+
+    <select id="getMyCreateClass" resultType="xyz.mxue.assistant.entity.ClassInfo">
+        SELECT b.id, b.class_name, b.school, b.college, b.grade, b.profession
+        FROM tb_student_class_related a
+                 LEFT JOIN tb_class_info b on a.class_id = b.id
+        WHERE a.student_id = #{id}
+          AND b.user_id = #{user_id}
+    </select>
+    <select id="getMyJoinClass" resultType="xyz.mxue.assistant.entity.ClassInfo">
+        SELECT b.id, b.class_name, b.school, b.college, b.grade, b.profession
+        FROM tb_student_class_related a
+                 LEFT JOIN tb_class_info b on a.class_id = b.id
+        WHERE a.student_id = #{id}
+          AND b.user_id != #{user_id}
     </select>
 
 </mapper>

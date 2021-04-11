@@ -62,13 +62,13 @@ public class NavsController {
                 "    {\n" +
                 "        \"title\": \"用户管理\",\n" +
                 "        \"href\": \"\",\n" +
-                "        \"icon\": \"&#xe66f;\",\n" +
+                "        \"icon\": \"&#xe612;\",\n" +
                 "        \"spread\": false,\n" +
                 "        \"children\": [\n" +
                 "            {\n" +
                 "                \"title\": \"用户列表\",\n" +
                 "                \"href\": \"/user/list-page\",\n" +
-                "                \"icon\": \"&#xe62e;\",\n" +
+                "                \"icon\": \"&#xe612;\",\n" +
                 "                \"spread\": false\n" +
                 "            }\n" +
                 "        ]\n" +
@@ -121,14 +121,14 @@ public class NavsController {
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"班级管理\",\n" +
-                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"href\": \"/class-info/list\",\n" +
                 "        \"icon\": \"&#xe665;\",\n" +
                 "        \"spread\": true\n" +
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"成员管理\",\n" +
                 "        \"href\": \"pages/console1.html\",\n" +
-                "        \"icon\": \"&#xe665;\",\n" +
+                "        \"icon\": \"&#xe612;\",\n" +
                 "        \"spread\": true\n" +
                 "    },\n" +
                 "    {\n" +

@@ -4,12 +4,9 @@ package xyz.mxue.assistant.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.mxue.assistant.commons.enumeration.ClassIsNowEnum;
 import xyz.mxue.assistant.commons.enumeration.StudentTypeEnum;
 import xyz.mxue.assistant.entity.ClassInfo;
@@ -19,6 +16,7 @@ import xyz.mxue.assistant.service.ClassInfoService;
 import xyz.mxue.assistant.service.StudentService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -170,6 +168,19 @@ public class ClassInfoController {
     }
 
     /**
+     * 编辑班级信息页面 通过ID
+     *
+     * @param id  班级ID
+     * @param map 返回集合
+     * @return String
+     */
+    @GetMapping("/edit-info-page-id/{id}")
+    public String editClassInfoPageById(@PathVariable(value = "id") String id, ModelMap map) {
+        map.put("classInfo", classInfoService.getById(id));
+        return prefix + "/edit";
+    }
+
+    /**
      * 保存修改班级信息
      *
      * @param classInfo 班级信息
@@ -183,7 +194,7 @@ public class ClassInfoController {
     }
 
     /**
-     *  切换班级页面
+     * 切换班级页面
      *
      * @param map 返回信息集合
      * @return String
@@ -194,5 +205,24 @@ public class ClassInfoController {
         map.put("classList", classInfoService.getClassInfoList(userId, ClassIsNowEnum.DELETE.getValue()));
         return prefix + "/change";
     }
+
+    /**
+     * @param map
+     * @return String
+     */
+    @GetMapping("/list")
+    public String classList(ModelMap map) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", StpUtil.getLoginIdAsLong());
+        Student student = studentService.getOne(queryWrapper);
+        List<ClassInfo> createClassList = classInfoService.getMyCreateClass(student.getId(), StpUtil.getLoginIdAsLong());
+        List<ClassInfo> joinClassList = classInfoService.getMyJoinClass(student.getId(), StpUtil.getLoginIdAsLong());
+        if (createClassList.isEmpty()) createClassList = null;
+        if (joinClassList.isEmpty()) joinClassList = null;
+        map.put("createClassList", createClassList);
+        map.put("joinClassList", joinClassList);
+        return prefix + "/list";
+    }
+
 }
 

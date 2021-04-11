@@ -18,4 +18,8 @@ import java.util.List;
 public interface ClassInfoMapper extends BaseMapper<ClassInfo> {
 
     List<ChangeClassInfoVO> getClassInfoList(@Param("userId") Long userId,@Param("isNow") Integer value);
+
+    List<ClassInfo> getMyCreateClass(@Param("id") Long id,@Param("user_id") long loginIdAsLong);
+
+    List<ClassInfo> getMyJoinClass(@Param("id") Long id,@Param("user_id") long loginIdAsLong);
 }
