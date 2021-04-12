@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>用户列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+    <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <!--js逻辑-->
+    <script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+<div class="ok-body">
+    <!--模糊搜索区域-->
+    <div class="layui-row">
+        <form class="layui-form ok-search-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="请输入姓名" autocomplete="off"
+                               name="studentName">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="请输入学号" autocomplete="off" name="studentNo">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">请选择角色</label>
+                    <div class="layui-input-inline">
+                        <select name="studentType" lay-verify="" lay-search>
+                            <option value="" selected>请选择角色</option>
+                            <option value="1">学委</option>
+                            <option value="2">管理员</option>
+                            <option value="3">学生</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" lay-submit="" lay-filter="search">
+                            <i class="layui-icon">&#xe615;</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--数据表格-->
+    <table class="layui-hide" id="tableId" lay-filter="tableFilter"></table>
+</div>
+
+<!-- 头工具栏模板 -->
+<th:block th:if="${student.studentType == 1}">
+    <script type="text/html" id="toolbarTpl">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="batchAdmin">设为管理</button>
+            <button class="layui-btn layui-btn-sm" lay-event="batchCancel">取消管理</button>
+        </div>
+    </script>
+</th:block>
+
+<script type="text/html" id="roleTpl">
+    {{#  if(d.studentType == 1){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-xs">学委</span>
+    {{#  } else if(d.studentType == 2) { }}
+    <span class="layui-btn layui-btn-xs">管理员</span>
+    {{#  } else if(d.studentType == 3) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">学生</span>
+    {{#  } }}
+</script>
+
+
+<script th:inline="javascript">
+
+    layui.use(["element", "jquery", "table", "form", "okLayer", "okUtils"], function () {
+        let table = layui.table;
+        let form = layui.form;
+        let okLayer = layui.okLayer;
+        let okUtils = layui.okUtils;
+        let $ = layui.jquery;
+
+        okLoading.close($);
+
+        let userTable = table.render();
+
+        let studentType = [[${student.studentType}]];
+        let assistant = 1;
+        if (assistant === studentType) {
+            userTable = table.render({
+                elem: '#tableId',
+                url: '/student/list',
+                limit: 10,
+                page: true,
+                title: '班级成员表',
+                toolbar: "#toolbarTpl",
+                cols: [
+                    [
+                        {type: "checkbox", fixed: "left"},
+                        {field: "id", title: "ID", width: 160, sort: true},
+                        {field: "studentName", title: "姓名"},
+                        {field: "studentNo", title: "学号"},
+                        {field: "studentType", title: "角色", width: 100, templet: "#roleTpl"},
+                    ]
+                ]
+            });
+        } else {
+             userTable = table.render({
+                elem: '#tableId',
+                url: '/student/list',
+                limit: 10,
+                page: true,
+                title: '班级成员表',
+                cols: [
+                    [
+                        {field: "id", title: "ID", width: 160, sort: true},
+                        {field: "studentName", title: "姓名"},
+                        {field: "studentNo", title: "学号"},
+                        {field: "studentType", title: "角色", width: 100, templet: "#roleTpl"},
+                    ]
+                ]
+            });
+        }
+
+
+
+        form.on("submit(search)", function (data) {
+            userTable.reload({
+                where: data.field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+
+        table.on("toolbar(tableFilter)", function (obj) {
+            switch (obj.event) {
+                case "batchAdmin":
+                    batchAdmin();
+                    break;
+                case "batchCancel":
+                    batchCancel();
+                    break;
+            }
+        });
+
+
+
+        function batchAdmin() {
+            okLayer.confirm("确定要批量设置管理吗？", function (index) {
+                layer.close(index);
+                let idsStr = okUtils.tableBatchCheck(table);
+                if (idsStr) {
+                    okUtils.ajax("/student/batch-admin", "post", {idsStr: idsStr}, true).done(function (response) {
+                        okUtils.tableSuccessMsg(response.msg);
+                    }).fail(function (error) {
+                        console.log(error)
+                    });
+                }
+            });
+        }
+
+        function batchCancel() {
+            okLayer.confirm("确定要批量取消管理吗？", function (index) {
+                layer.close(index);
+                let idsStr = okUtils.tableBatchCheck(table);
+                if (idsStr) {
+                    okUtils.ajax("/student/batch-cancel", "post", {idsStr: idsStr}, true).done(function (response) {
+                        okUtils.tableSuccessMsg(response.msg);
+                    }).fail(function (error) {
+                        console.log(error)
+                    });
+                }
+            });
+        }
+
+    })
+</script>
+</body>
+</html>

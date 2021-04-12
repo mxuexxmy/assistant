@@ -127,7 +127,7 @@ public class NavsController {
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"成员管理\",\n" +
-                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"href\": \"/student/list-page\",\n" +
                 "        \"icon\": \"&#xe612;\",\n" +
                 "        \"spread\": true\n" +
                 "    },\n" +

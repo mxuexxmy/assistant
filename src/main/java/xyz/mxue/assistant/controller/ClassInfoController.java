@@ -207,6 +207,28 @@ public class ClassInfoController {
     }
 
     /**
+     * 删除班级
+     *
+     * @param id 班级ID
+     * @return Result<String>
+     */
+    @GetMapping("/delete-class/{id}")
+    public Result<String> deleteClass(@PathVariable(value = "id") Long id) {
+        return null;
+    }
+
+    /**
+     * 退出班级
+     *
+     * @param id 班级ID
+     * @return Result<String>
+     */
+    @GetMapping("/delete-related/{id}")
+    public Result<String> deleteClassRelated(@PathVariable(value = "id") Long id) {
+        return null;
+    }
+
+    /**
      * @param map
      * @return String
      */
