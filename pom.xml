@@ -114,6 +114,20 @@
 			<version>4.0.11</version>
 		</dependency>
 
+		<!--libreoffice文档在线预览-->
+		<dependency>
+			<groupId>org.jodconverter</groupId>
+			<artifactId>jodconverter-core</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+
+		<!--easypoi导入导出-->
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-base</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

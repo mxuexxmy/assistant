@@ -25,6 +25,7 @@ public class PageResult<T> implements Serializable {
     @ApiModelProperty(value = "返回对象")
     private List data = null;
 
+
     @ApiModelProperty(value = "总条数")
     private Long count;
 
@@ -33,6 +34,9 @@ public class PageResult<T> implements Serializable {
 
     @ApiModelProperty(value = "每页显示条数")
     private Long pageSize;
+
+    public PageResult() {
+    }
 
     public static <T> PageResult<T> succeed(Page<T> page) {
        return new PageResult<>(page);

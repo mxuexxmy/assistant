@@ -115,7 +115,7 @@ public class NavsController {
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"班级文件\",\n" +
-                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"href\": \"/class-file/index\",\n" +
                 "        \"icon\": \"&#xe665;\",\n" +
                 "        \"spread\": true\n" +
                 "    },\n" +
