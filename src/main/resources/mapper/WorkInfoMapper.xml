@@ -8,7 +8,7 @@
         <result column="student_id" property="studentId" />
         <result column="work_course" property="workCourse" />
         <result column="work_title" property="workTitle" />
-        <result column="work_contant" property="workContant" />
+        <result column="work_context" property="workContext" />
         <result column="work_remark" property="workRemark" />
         <result column="end_time" property="endTime" />
         <result column="work_type" property="workType" />

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
     <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
-    <!--js逻辑-->
     <script type="text/javascript" src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
 </head>
 <body>
@@ -16,56 +15,41 @@
         <form class="layui-form ok-search-form">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">用户名</label>
+                    <label class="layui-form-label">课程</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" placeholder="用户名" autocomplete="off" name="nickName">
+                        <input type="text" class="layui-input" placeholder="请输入作业课程" autocomplete="off" name="workCourse">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">号码</label>
+                    <label class="layui-form-label">标题</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" placeholder="号码" autocomplete="off" name="phone">
+                        <input type="text" class="layui-input" placeholder="请输入作业标题" autocomplete="off" name="workTitle">
                     </div>
                 </div>
+
                 <div class="layui-inline">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label">作业类型</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" placeholder="邮箱" autocomplete="off" name="email">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">角色</label>
-                    <div class="layui-input-inline">
-                        <select name="adminType" lay-verify="" lay-search>
-                            <option value="" selected>请选择角色</option>
-                            <option value="0">超级管理员</option>
-                            <option value="1">普通用户</option>
+                        <select name="status" lay-verify="" lay-search>
+                            <option value="" selected>请选择类型</option>
+                            <option value="1">电子作业</option>
+                            <option value="2">纸质作业</option>
+                            <option value="3">个人作业</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">性别</label>
+                    <label class="layui-form-label">作业状态</label>
                     <div class="layui-input-inline">
-                        <select name="sex" lay-verify="" lay-search>
-                            <option value="" selected>请选择性别</option>
-                            <option value="1">男</option>
-                            <option value="2">女</option>
-                            <option value="3">未知</option>
+                        <select name="workStatus" lay-verify="" lay-search>
+                            <option value="" selected>请选择作业状态</option>
+                            <option value="1">未交</option>
+                            <option value="2">已交</option>
                         </select>
                     </div>
                 </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-inline">
-                        <select name="status" lay-verify="" lay-search>
-                            <option value="" selected>请选择状态</option>
-                            <option value="0">正常</option>
-                            <option value="1">冻结</option>
-                            <option value="2">删除</option>
-                        </select>
-                    </div>
-                </div>
+
                 <div class="layui-inline">
                     <div class="layui-input-inline">
                         <button class="layui-btn" lay-submit="" lay-filter="search">
@@ -94,31 +78,13 @@
     <a href="javascript:" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
 </script>
 
-<script type="text/html" id="roleTpl">
-    {{#  if(d.adminType == 0){ }}
-    <span class="layui-btn layui-btn-normal layui-btn-xs">超级管理员</span>
-    {{#  } else if(d.adminType == 1) { }}
-    <span class="layui-btn layui-btn-warm layui-btn-xs">普通用户</span>
-    {{#  } }}
-</script>
-
-<script type="text/html" id="sexTpl">
-    {{#  if(d.sex == 1){ }}
-    <span class="layui-btn layui-btn-normal layui-btn-xs">男</span>
-    {{#  } else if(d.sex == 2) { }}
-    <span class="layui-btn layui-btn-normal layui-btn-xs">女</span>
-    {{#  } else if(d.sex == 3) { }}
-    <span class="layui-btn layui-btn-warm layui-btn-xs">未知</span>
-    {{#  } }}
-</script>
-
-<script type="text/html" id="userStatusTpl">
-    {{#  if(d.status == 0){ }}
-    <span class="layui-btn layui-btn-normal layui-btn-xs">正常</span>
-    {{#  } else if(d.status == 1) { }}
-    <span class="layui-btn layui-btn-warm layui-btn-xs">冻结</span>
-    {{#  } else if(d.status == 2) { }}
-    <span class="layui-btn layui-btn-danger layui-btn-xs">删除</span>
+<script type="text/html" id="workTypeTpl">
+    {{#  if(d.workStatus == 1){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-xs">电子作业</span>
+    {{#  } else if(d.workStatus == 2) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">纸质作业</span>
+    {{#  } else if(d.workStatus == 3) { }}
+    <span class="layui-btn layui-btn-danger layui-btn-xs">个人作业</span>
     {{#  } }}
 </script>
 
@@ -138,22 +104,21 @@
 
         let userTable = table.render({
             elem: '#tableId',
-            url: '/user/list',
+            url: '/work-info/list',
             limit: 10,
             page: true,
-            title: '学生信息表',
+            title: '作业信息表',
             toolbar: "#toolbarTpl",
             cols: [
                 [
                     {type: "checkbox", fixed: "left"},
-                    {field: "id", title: "ID", width: 160, sort: true},
-                    {field: "nickName", title: "用户名"},
-                    {field: "sex", title: "性别", templet: "#sexTpl"},
-                    {field: "phone", title: "号码"},
-                    {field: "email", title: "邮箱"},
-                    {field: "adminType", title: "角色", width: 100, templet: "#roleTpl"},
-                    {field: "status", title: "用户状态", templet: "#userStatusTpl"},
-                    {field: "lastLoginTime", title: "登录时间"},
+                    {field: "workCourse", title: "课程"},
+                    {field: "workTitle", title: "标题",},
+                    {field: "workContext", title: "作业内容"},
+                    {field: "workRemark", title: "作业备注"},
+                    {field: "endTime", title: "截止时间"},
+                    {field: "workType", title: "作业类型", templet: "#workTypeTpl"},
+                    {field: "workStatus", title: "作业状态"},
                     {field: "createTime", title: "创建时间"},
                     {field: "updateTime", title: "更新时间"},
                     {title: "操作", width: 100, align: "center", fixed: "right", templet: "#operationTpl"}

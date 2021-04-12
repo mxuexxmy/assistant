@@ -109,7 +109,7 @@ public class NavsController {
                 "    },\n" +
                 "    {\n" +
                 "        \"title\": \"班级作业\",\n" +
-                "        \"href\": \"pages/console1.html\",\n" +
+                "        \"href\": \"/work-info/index\",\n" +
                 "        \"icon\": \"&#xe665;\",\n" +
                 "        \"spread\": true\n" +
                 "    },\n" +

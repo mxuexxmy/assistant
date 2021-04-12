@@ -38,7 +38,7 @@ public class WorkInfo implements Serializable {
     private String workTitle;
 
     @ApiModelProperty(value = "作业内容")
-    private String workContant;
+    private String workContext;
 
     @ApiModelProperty(value = "作业备注")
     private String workRemark;
@@ -59,6 +59,5 @@ public class WorkInfo implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField( fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-
 
 }
