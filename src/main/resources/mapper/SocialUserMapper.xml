@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.mxue.assistant.mapper.SocialUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.SocialUser">
+        <id column="id" property="id" />
+        <result column="uuid" property="uuid" />
+        <result column="source" property="source" />
+        <result column="access_token" property="accessToken" />
+        <result column="expire_in" property="expireIn" />
+        <result column="refresh_token" property="refreshToken" />
+        <result column="open_id" property="openId" />
+        <result column="uid" property="uid" />
+        <result column="access_code" property="accessCode" />
+        <result column="union_id" property="unionId" />
+        <result column="scope" property="scope" />
+        <result column="token_type" property="tokenType" />
+        <result column="id_token" property="idToken" />
+        <result column="mac_algorithm" property="macAlgorithm" />
+        <result column="mac_key" property="macKey" />
+        <result column="code" property="code" />
+        <result column="oauth_token" property="oauthToken" />
+        <result column="oauth_token_secret" property="oauthTokenSecret" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
