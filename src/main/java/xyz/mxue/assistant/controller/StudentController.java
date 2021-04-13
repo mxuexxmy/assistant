@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import xyz.mxue.assistant.commons.enumeration.StudentTypeEnum;
 import xyz.mxue.assistant.entity.Student;
+import xyz.mxue.assistant.entity.StudentClassRelated;
 import xyz.mxue.assistant.model.PageResult;
 import xyz.mxue.assistant.model.Result;
+import xyz.mxue.assistant.model.vo.StudentInfoVO;
+import xyz.mxue.assistant.service.ClassInfoService;
+import xyz.mxue.assistant.service.StudentClassRelatedService;
 import xyz.mxue.assistant.service.StudentService;
+import xyz.mxue.assistant.service.impl.StudentServiceImpl;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -38,6 +43,12 @@ public class StudentController {
     @Resource
     private StudentService studentService;
 
+    @Resource
+    private StudentClassRelatedService classRelatedService;
+
+    @Resource
+    private ClassInfoService classInfoService;
+
     /**
      * 保存修改的学生信息
      *
@@ -58,9 +69,7 @@ public class StudentController {
      */
     @GetMapping("/list-page")
     public String listPage(ModelMap map) {
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", StpUtil.getLoginIdAsLong());
-        map.put("student", studentService.getOne(queryWrapper));
+        map.put("studentType", studentService.getStudentType(StpUtil.getLoginIdAsLong()));
         return prefix + "/list";
     }
 
@@ -73,7 +82,7 @@ public class StudentController {
     @PostMapping("/batch-admin")
     @ResponseBody
     public Result<String> batchAdmin(String idsStr) {
-        boolean b = studentService.updateBatchById(getBatchStudent(idsStr, StudentTypeEnum.ACADEMIC_COMMITTEE.getValue(),
+        boolean b = classRelatedService.updateBatchById(getBatchStudent(idsStr, StudentTypeEnum.ACADEMIC_COMMITTEE.getValue(),
                 StudentTypeEnum.ACADEMIC_COMMITTEE_ASSISTANT.getValue()));
         return b ? Result.succeed("批量设置管理员成功！") : Result.failed("批量设置管理员失败！");
     }
@@ -87,7 +96,7 @@ public class StudentController {
     @PostMapping("/batch-cancel")
     @ResponseBody
     public Result<String> batchCancel(String idsStr) {
-        boolean b = studentService.updateBatchById(getBatchStudent(idsStr, StudentTypeEnum.ACADEMIC_COMMITTEE.getValue(),
+        boolean b = classRelatedService.updateBatchById(getBatchStudent(idsStr, StudentTypeEnum.ACADEMIC_COMMITTEE.getValue(),
                 StudentTypeEnum.GENERAL_STUDENT.getValue()));
         return b ? Result.succeed("批量取消管理成功！！") : Result.failed("批量取消管理失败！");
     }
@@ -100,18 +109,28 @@ public class StudentController {
      * @param goalStudentType   得到的学生角色
      * @return List<Student>
      */
-    private List<Student> getBatchStudent(String idsStr, Integer removeStudentType, Integer goalStudentType) {
-        // 查询出学生列表
+    private List<StudentClassRelated> getBatchStudent(String idsStr, Integer removeStudentType, Integer goalStudentType) {
+        // 查询当前的班级ID
+        Long classId = classInfoService.getClassIdByStudent(StpUtil.getLoginIdAsLong());
+        // 查询学生列表
         List<Student> studentList = studentService.listByIds(Arrays.asList(idsStr.split(",")));
-        // 排除学委
-        List<Student> newStudentList = new ArrayList<>();
+        List<StudentClassRelated> classRelatedList = new ArrayList<>();
         for (Student student : studentList) {
-            if (!student.getStudentType().equals(removeStudentType)) {
-                student.setStudentType(goalStudentType);
-                newStudentList.add(student);
+            QueryWrapper<StudentClassRelated> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("student_id", student.getId())
+                    .eq("class_id", classId);
+            classRelatedList.add(classRelatedService.getOne(queryWrapper));
+
+        }
+
+        List<StudentClassRelated> studentClassRelatedList = new ArrayList<>();
+        for (StudentClassRelated classRelated : classRelatedList) {
+            if (!classRelated.getStudentType().equals(removeStudentType)) {
+                classRelated.setStudentType(goalStudentType);
+                studentClassRelatedList.add(classRelated);
             }
         }
-        return newStudentList;
+        return studentClassRelatedList;
     }
 
     /**
@@ -124,20 +143,10 @@ public class StudentController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public PageResult<Student> list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer current,
-                                    @RequestParam(value = "limit", required = false, defaultValue = "10") Integer size,
-                                    Student student) {
-        Page<Student> page = new Page<>(current, size);
-        // 先查出学生信息
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", StpUtil.getLoginIdAsLong());
-        Student student1 = studentService.getOne(queryWrapper);
-        QueryWrapper<Student> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.eq("class_id", student1.getClassId())
-                .like(StrUtil.isNotBlank(student.getStudentName()), "student_name", student.getStudentName())
-                .like(StrUtil.isNotBlank(student.getStudentNo()), "student_no", student.getStudentNo())
-                .eq(Objects.nonNull(student.getStudentType()), "student_type", student.getStudentType());
-        return PageResult.succeed(studentService.page(page, queryWrapper1));
+    public PageResult<StudentInfoVO> list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer current,
+                                          @RequestParam(value = "limit", required = false, defaultValue = "10") Integer size,
+                                          StudentInfoVO student) {
+        return studentService.queryStudentList(current, size, student);
     }
 }
 

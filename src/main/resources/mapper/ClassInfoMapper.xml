@@ -13,20 +13,20 @@
         <result column="grade" property="grade"/>
         <result column="profession" property="profession"/>
         <result column="class_key" property="classKey"/>
-        <result column="is_now" property="isNow"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getClassInfoList" resultType="xyz.mxue.assistant.model.vo.ChangeClassInfoVO">
-        SELECT b.id,
-               b.school,
-               b.college,
-               b.grade,
-               b.class_name
-        FROM tb_student a
-                 LEFT JOIN tb_class_info b ON a.class_id = b.id
-        WHERE a.user_id = #{userId}
-          AND b.is_now != #{isNow}
+        SELECT c.id,
+               d.school,
+               d.college,
+               d.grade,
+               d.class_name
+        FROM sys_user a
+                 LEFT JOIN tb_student b ON a.id = b.user_id
+                 LEFT JOIN tb_student_class_related c ON b.id = c.student_id
+                 LEFT JOIN tb_class_info d ON c.class_id = d.id
+        WHERE a.id = #{userId}
     </select>
 
     <select id="getMyCreateClass" resultType="xyz.mxue.assistant.entity.ClassInfo">
@@ -42,6 +42,25 @@
                  LEFT JOIN tb_class_info b on a.class_id = b.id
         WHERE a.student_id = #{id}
           AND b.user_id != #{user_id}
+    </select>
+    <select id="getClassInfoByRelatedId" resultType="xyz.mxue.assistant.entity.ClassInfo">
+        SELECT b.id,
+               b.class_name,
+               b.school,
+               b.college,
+               b.grade,
+               b.profession,
+               b.student_id,
+               b.class_key
+        FROM tb_student_class_related a
+                 LEFT JOIN tb_class_info b ON a.class_id = b.id
+        WHERE a.id = #{relatedId}
+    </select>
+    <select id="getClassIdByStudent" resultType="java.lang.Long">
+        SELECT b.class_id
+        FROM tb_student a
+                 LEFT JOIN tb_student_class_related b ON a.related_id = b.id
+        WHERE a.user_id = #{userId}
     </select>
 
 </mapper>

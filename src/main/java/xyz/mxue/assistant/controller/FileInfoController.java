@@ -59,6 +59,7 @@ public class FileInfoController {
     @ResponseBody
     @GetMapping("/download")
     public void download(@Validated(FileInfoParam.detail.class) FileInfoParam FileInfoParam, HttpServletResponse response) {
+        System.out.println("FileInfoParam:" + FileInfoParam);
         fileInfoService.download(FileInfoParam, response);
     }
 

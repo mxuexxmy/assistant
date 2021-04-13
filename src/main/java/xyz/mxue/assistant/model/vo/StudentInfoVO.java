@@ -22,23 +22,9 @@ public class StudentInfoVO implements Serializable {
     private String studentName;
 
     @ApiModelProperty(value = "学号")
-    private String studentId;
-
-    @ApiModelProperty(value = "班级名")
-    private String classNumber;
+    private String studentNo;
 
     @ApiModelProperty(value = "0表示系统管理员，1表示学委，2表示学委助理，3表示普通学生")
-    private Integer role;
+    private Integer studentType;
 
-    @ApiModelProperty(value = "邮箱")
-    private String email;
-
-    @ApiModelProperty(value = "手机")
-    private String phone;
-
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
 }

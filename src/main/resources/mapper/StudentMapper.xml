@@ -8,18 +8,31 @@
         <result column="user_id" property="userId"/>
         <result column="student_name" property="studentName"/>
         <result column="student_no" property="studentNo"/>
-        <result column="class_id" property="classId"/>
-        <result column="student_type" property="studentType"/>
+        <result column="related_id" property="relatedId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getStudentType" resultType="java.lang.Integer">
-        SELECT c.student_type
-        FROM sys_user a
-                 LEFT JOIN tb_class_info b ON a.id = b.user_id
-                 LEFT JOIN tb_student c ON b.id = c.class_id
-        WHERE a.id = #{userId}
-          AND b.is_now = #{classIsNow}
+        SELECT b.student_type
+        FROM tb_student a
+                 LEFT JOIN tb_student_class_related b ON a.related_id = b.id
+        WHERE a.user_id = #{userId}
     </select>
+    <select id="queryStudentList" resultType="xyz.mxue.assistant.model.vo.StudentInfoVO">
+        SELECT d.id,
+               d.student_name,
+               d.student_no,
+               c.student_type
+        FROM tb_student_class_related c
+                 LEFT JOIN tb_student d ON c.student_id = d.id
+            ${ew.customSqlSegment}
+    </select>
+    <select id="getStudentOfClassByUserId" resultType="java.lang.Long">
+        SELECT b.class_id
+        FROM tb_student a
+                 LEFT JOIN tb_student_class_related b ON a.related_id = b.id
+        WHERE a.user_id = #{userId}
+    </select>
+
 
 </mapper>

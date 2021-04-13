@@ -22,7 +22,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="add">切换</button>
+                <button class="layui-btn" lay-submit lay-filter="change">切换</button>
                 <button type="reset" class="layui-btn layui-btn-primary">取消</button>
             </div>
         </div>
@@ -37,8 +37,8 @@
 
         okLoading.close();
 
-        form.on("submit(add)", function (data) {
-            okUtils.ajax("/class-info/save-new-class", "post", data.field, true).done(function (response) {
+        form.on("submit(change)", function (data) {
+            okUtils.ajax("/class-info/save-change-class", "post", data.field, true).done(function (response) {
                 okLayer.greenTickMsg(response.msg, function () {
                     parent.layer.close(parent.layer.getFrameIndex(window.name));
                 });

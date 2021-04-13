@@ -6,9 +6,6 @@
     <resultMap id="BaseResultMap" type="xyz.mxue.assistant.entity.User">
         <id column="id" property="id"/>
         <result column="nick_name" property="nickName"/>
-        <result column="wx_open_id" property="wxOpenId"/>
-        <result column="qq_open_id" property="qqOpenId"/>
-        <result column="ali_pay_open_id" property="aliPayOpenId"/>
         <result column="sex" property="sex"/>
         <result column="password" property="password"/>
         <result column="phone" property="phone"/>
@@ -21,18 +18,20 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getUserAndStudentType" resultType="xyz.mxue.assistant.model.vo.UserAndStudentInfoVO">
-        SELECT a.id,
-               a.nick_name,
-               a.wx_open_id,
-               a.qq_open_id,
-               a.ali_pay_open_id,
-               a.sex,
-               a.phone,
-               a.email,
-               b.student_type
-        FROM sys_user a
-                 LEFT JOIN tb_student b ON a.id = b.user_id
-        WHERE a.id = #{loginId}
+        SELECT
+            a.id,
+            a.nick_name,
+            a.sex,
+            a.phone,
+            a.email,
+            c.student_type,
+            a.avatar
+        FROM
+            sys_user a
+                LEFT JOIN tb_student b ON a.id = b.user_id
+                LEFT JOIN tb_student_class_related c on b.related_id = c.id
+        WHERE
+            a.id = #{loginId}
     </select>
 
 </mapper>

@@ -18,5 +18,7 @@ public interface UserService extends IService<User> {
 
 
     UserAndStudentInfoVO getUserAndStudentType(Serializable loginId);
+
+    void updateAvatar(User user);
 }
 

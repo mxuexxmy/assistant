@@ -237,9 +237,7 @@ layui.define(["jquery", "layer", "form", "upload", "util"], function (c) {
             e.close(g("#fc-btn-ok-sel").parents(".layui-layer").attr("id").substring(11))
         }
     };
-
     a.renderList = function (l) {
-        console.log("l", l);
         var r = l.fileUrl;
         var o = l.data;
         var t = l.multi;
@@ -296,7 +294,6 @@ layui.define(["jquery", "layer", "form", "upload", "util"], function (c) {
         }
         return p
     };
-
     a.getErrorHtml = function (k, j) {
         j || (j = "layui-icon-face-surprised");
         var i = "";

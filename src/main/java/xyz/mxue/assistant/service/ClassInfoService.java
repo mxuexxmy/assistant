@@ -16,9 +16,13 @@ import java.util.List;
  */
 public interface ClassInfoService extends IService<ClassInfo> {
 
-    List<ChangeClassInfoVO> getClassInfoList(Long userId, Integer value);
+    List<ChangeClassInfoVO> getClassInfoList(Long userId);
 
     List<ClassInfo> getMyCreateClass(Long id, long loginIdAsLong);
 
     List<ClassInfo> getMyJoinClass(Long id, long loginIdAsLong);
+
+    ClassInfo getClassInfoByRelatedId(Long relatedId);
+
+    Long getClassIdByStudent(long loginIdAsLong);
 }

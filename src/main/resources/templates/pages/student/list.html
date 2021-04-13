@@ -59,7 +59,7 @@
 </div>
 
 <!-- 头工具栏模板 -->
-<th:block th:if="${student.studentType == 1}">
+<th:block th:if="${studentType == 1}">
     <script type="text/html" id="toolbarTpl">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="batchAdmin">设为管理</button>
@@ -92,7 +92,7 @@
 
         let userTable = table.render();
 
-        let studentType = [[${student.studentType}]];
+        let studentType = [[${studentType}]];
         let assistant = 1;
         if (assistant === studentType) {
             userTable = table.render({

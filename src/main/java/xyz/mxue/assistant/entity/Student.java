@@ -37,11 +37,8 @@ public class Student implements Serializable {
     @ApiModelProperty(value = "学号")
     private String studentNo;
 
-    @ApiModelProperty(value = "班级ID")
-    private Long classId;
-
-    @ApiModelProperty(value = "1表示学委，2表示学委助理，3表示普通学生")
-    private Integer studentType;
+    @ApiModelProperty(value = "学生班级关联ID")
+    private Long relatedId;
 
     @ApiModelProperty(value = "创建时间")
     @TableField( fill = FieldFill.INSERT)

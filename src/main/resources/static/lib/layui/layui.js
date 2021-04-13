@@ -45,6 +45,8 @@ if (!Object.assign) {
         "okHoliday": "okmodules/okHoliday",
         "okLayx": "okmodules/okLayx",
         "jqprint": "okmodules/jqprint",
+        "cropper": "okmodules/cropper",
+        "croppers": "okmodules/croppers",
     };
     var modulePath = Object.assign({
         layer: "modules/layer",

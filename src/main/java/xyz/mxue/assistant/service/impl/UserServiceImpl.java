@@ -3,6 +3,7 @@ package xyz.mxue.assistant.service.impl;
 import xyz.mxue.assistant.entity.User;
 import xyz.mxue.assistant.mapper.UserMapper;
 import xyz.mxue.assistant.model.vo.UserAndStudentInfoVO;
+import xyz.mxue.assistant.service.FileInfoService;
 import xyz.mxue.assistant.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private FileInfoService fileInfoService;
+
     @Override
     public UserAndStudentInfoVO getUserAndStudentType(Serializable loginId) {
         return userMapper.getUserAndStudentType(loginId);
+    }
+
+    @Override
+    public void updateAvatar(User user) {
+        User user1 = userMapper.selectById(user.getId());
+        Long avatar = user.getAvatar();
+        user1.setAvatar(avatar);
+        userMapper.updateById(user1);
     }
 }

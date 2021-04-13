@@ -50,7 +50,7 @@
 
             <li class="no-line layui-nav-item">
                 <a href="javascript:">
-                    <img src="images/avatar.png" class="layui-nav-img">
+                    <img th:src="'/file-info/preview?id='+ ${user.avatar}" class="layui-nav-img">
                     [[${user.nickName}]]
                 </a>
                 <dl id="userInfo" class="layui-nav-child">
@@ -95,7 +95,7 @@
             <div class="okadmin-logo">学委助手</div>
             <div class="user-photo">
                 <a class="img" title="我的头像">
-                    <img src="images/avatar.png" class="userAvatar">
+                    <img th:src="'/file-info/preview?id='+ ${user.avatar}" class="userAvatar">
                 </a>
                 <p>你好！<span class="userName"> [[${user.nickName}]]</span>, 欢迎登录</p>
             </div>
@@ -149,7 +149,7 @@
 
     <!--底部信息-->
     <div class="layui-footer okadmin-text-center">
-        Copyright ©2020-©2021 学委助手 V1.3.0 All Rights Reserved
+        Copyright ©2020-©2021 学委助手 V1.4.0 All Rights Reserved
     </div>
 </div>
 

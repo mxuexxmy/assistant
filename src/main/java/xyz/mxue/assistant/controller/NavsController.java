@@ -1,21 +1,16 @@
 package xyz.mxue.assistant.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.mxue.assistant.commons.enumeration.AdminTypeEnum;
-import xyz.mxue.assistant.commons.enumeration.ClassIsNowEnum;
-import xyz.mxue.assistant.commons.enumeration.StudentTypeEnum;
-import xyz.mxue.assistant.entity.Student;
 import xyz.mxue.assistant.entity.User;
-import xyz.mxue.assistant.service.StudentService;
 import xyz.mxue.assistant.service.UserService;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.Objects;
+
 
 /**
  * @author mxuexxmy
@@ -29,9 +24,6 @@ public class NavsController {
 
     @Resource
     private UserService userService;
-
-    @Resource
-    private StudentService studentService;
 
     @GetMapping
     public Object navs() {

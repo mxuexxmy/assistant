@@ -25,8 +25,8 @@ public class ClassInfoServiceImpl extends ServiceImpl<ClassInfoMapper, ClassInfo
     private ClassInfoMapper classInfoMapper;
 
     @Override
-    public List<ChangeClassInfoVO> getClassInfoList(Long userId, Integer value) {
-        return classInfoMapper.getClassInfoList(userId, value);
+    public List<ChangeClassInfoVO> getClassInfoList(Long userId) {
+        return classInfoMapper.getClassInfoList(userId);
     }
 
     @Override
@@ -37,5 +37,15 @@ public class ClassInfoServiceImpl extends ServiceImpl<ClassInfoMapper, ClassInfo
     @Override
     public List<ClassInfo> getMyJoinClass(Long id, long loginIdAsLong) {
         return classInfoMapper.getMyJoinClass(id, loginIdAsLong);
+    }
+
+    @Override
+    public ClassInfo getClassInfoByRelatedId(Long relatedId) {
+        return classInfoMapper.getClassInfoByRelatedId(relatedId);
+    }
+
+    @Override
+    public Long getClassIdByStudent(long loginIdAsLong) {
+        return classInfoMapper.getClassIdByStudent(loginIdAsLong);
     }
 }

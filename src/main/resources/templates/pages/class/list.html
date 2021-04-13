@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>学生列表</title>
@@ -22,13 +22,25 @@
                         <div>
                             [[${createClass.school}]][[${createClass.college}]][[${createClass.grade}]][[${createClass.profession}]][[${createClass.className}]]
                             <button class="layui-btn" lay-submit="" lay-filter="editClass">
-                                <i class="layui-icon layui-icon-edit"></i>
+                                修改班级</i>
                             </button>
+
                             <button class="layui-btn layui-btn-danger" lay-submit="" lay-filter="deleteClass">
-                                <i class="layui-icon layui-icon-close"></i>
+                                删除班级</i>
                             </button>
+
+                            <th:block th:if="${createClass.id == classId}">
+                                <button type="button" class="layui-btn layui-btn-disabled">当前班级</button>
+                            </th:block>
+
+                            <th:block th:if="${createClass.id != classId}">
+                                <button class="layui-btn" lay-submit lay-filter="changeClass">切换班级</button>
+                            </th:block>
+
                         </div>
-                        <br>
+                        <br/>
+                        <br/>
+
                     </form>
                 </div>
             </div>
@@ -40,14 +52,23 @@
             <legend>我加入的班级</legend>
             <div class="layui-field-box">
                 <div class="layui-row" th:each="joinClass : ${joinClassList}">
-                    <input type="hidden" name="id" th:value="${joinClass.id}">
                     <form class="layui-form layui-col-md12 ok-search">
+                        <input type="hidden" name="id" th:value="${joinClass.id}">
                         <div>
                             [[${joinClass.school}]][[${joinClass.college}]][[${joinClass.grade}]][[${joinClass.profession}]][[${joinClass.className}]]
                             <button class="layui-btn layui-btn-danger" lay-submit="" lay-filter="deleteClassRelated">
-                                <i class="layui-icon layui-icon-close"></i>
+                                退出班级</i>
                             </button>
+                            <th:block th:if="${joinClass.id == classId}">
+                                <button type="button" class="layui-btn layui-btn-disabled">当前班级</button>
+                            </th:block>
+
+                            <th:block th:if="${joinClass.id != classId}">
+                                <button class="layui-btn" lay-submit lay-filter="changeClass">切换班级</button>
+                            </th:block>
                         </div>
+                        <br/>
+                        <br/>
                     </form>
                 </div>
             </div>
@@ -74,7 +95,9 @@
         form.on("submit(deleteClass)", function (data) {
             okLayer.confirm("确定要删除班级吗？", function () {
                 okUtils.ajax("/class-info/delete-class/" + data.field.id, "get", null, true).done(function (response) {
-                    okUtils.tableSuccessMsg(response.msg);
+                    okLayer.greenTickMsg(response.msg, function () {
+                        window.location = "/class-info/list";
+                    });
                 }).fail(function (error) {
 
                 });
@@ -82,10 +105,19 @@
             return false;
         });
 
+        form.on("submit(changeClass)", function () {
+            okLayer.open("切换班级", "/class-info/change-class-page", "80%", "80%", null, function () {
+                window.location = "/class-info/list";
+            });
+            return false;
+        });
+
         form.on("submit(deleteClassRelated)", function (data) {
             okLayer.confirm("确定要退出吗？", function () {
                 okUtils.ajax("/class-info/delete-related/" + data.field.id, "get", null, true).done(function (response) {
-                    okUtils.tableSuccessMsg(response.msg);
+                    okLayer.greenTickMsg(response.msg, function () {
+                        window.location = "/class-info/list";
+                    });
                 }).fail(function (error) {
 
                 });

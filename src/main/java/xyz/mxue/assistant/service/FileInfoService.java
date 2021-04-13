@@ -9,6 +9,7 @@ import xyz.mxue.assistant.model.FileInfoResult;
 import xyz.mxue.assistant.model.PageResult;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -107,6 +108,13 @@ public interface FileInfoService extends IService<FileInfo> {
      * @date 2020/6/28 15:55
      */
     void assertFile(Long field);
+
+    /**
+     * 根据 文件集合ID 查询文件列表
+     * @param fileIds id集合
+     * @return PageResult<Dict>
+     */
+    PageResult<Dict> listByFileIds(List<Long> fileIds);
 
     /**
      * 文件预览

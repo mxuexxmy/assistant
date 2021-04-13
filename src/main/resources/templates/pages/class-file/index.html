@@ -139,20 +139,40 @@
                 <button id="file-btn-refresh" class="layui-btn layui-btn-sm layui-btn-primary icon-btn">
                     <i class="layui-icon">&#xe669;</i>刷新
                 </button>
-                <button id="file-btn-upload" class="layui-btn layui-btn-sm layui-btn-normal icon-btn">
-                    <i class="layui-icon">&#xe681;</i>上传文件
-                </button>
-                <button id="file-btn-choose" class="layui-btn layui-btn-sm layui-btn-primary icon-btn"
-                        style="margin-left: 10px;">
-                    <i class="layui-icon">&#xe634;</i>弹窗选择
-                </button>
+
+                <th:block th:if="${studentType == 1}">
+                    <button id="file-btn-upload" class="layui-btn layui-btn-sm layui-btn-normal icon-btn"
+                            style="margin-left: 10px;">
+                        <i class="layui-icon">&#xe681;</i>单文件
+                    </button>
+                    <button id="files-btn-upload" class="layui-btn layui-btn-sm icon-btn" style="margin-left: 10px;">
+                        <i class="layui-icon">&#xe681;</i>多文件
+                    </button>
+
+                    <button id="file-btn-choose" class="layui-btn layui-btn-sm layui-btn-primary icon-btn"
+                            style="margin-left: 10px;">
+                        <i class="layui-icon">&#xe634;</i>弹窗选择
+                    </button>
+                </th:block>
+
+                <th:block th:if="${studentType == 2}">
+                    <button id="file-btn-upload" class="layui-btn layui-btn-sm layui-btn-normal icon-btn"
+                            style="margin-left: 10px;">
+                        <i class="layui-icon">&#xe681;</i>单文件
+                    </button>
+                    <button id="files-btn-upload" class="layui-btn layui-btn-sm icon-btn" style="margin-left: 10px;">
+                        <i class="layui-icon">&#xe681;</i>多文件
+                    </button>
+
+                </th:block>
+
             </div>
             <div id="file-list-group"></div>
         </div>
     </div>
 </div>
 
-<script>
+<script th:inline="javascript">
     layui.use(['jquery', 'layer', 'notice', 'xnUtil', 'element', 'upload', 'fileChoose'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
@@ -161,23 +181,43 @@
         var fileChoose = layui.fileChoose;
         var dataList = [];
 
+        let studentType = [[${studentType}]];
+        let assistant = 1;
+        let manager = 2;
+
         // 渲染列表
         function renderList() {
             layer.load(2);
-            admin.req('/class-file/list', function(res){
+            admin.req('/class-file/list', function (res) {
                 admin.removeLoading();
                 dataList = res.data;
-                console.log("dataList", dataList)
-                var htmlStr = fileChoose.renderList({
-                    data: dataList,
-                    menu: [{
-                        name: '预览',
-                        event: 'preview'
-                    },{
-                        name: '<span style="color: red;">删除</span>',
-                        event: 'del'
-                    }]
-                });
+                var htmlStr;
+                if (studentType == assistant) {
+                    htmlStr = fileChoose.renderList({
+                        data: dataList,
+                        menu: [{
+                            name: '预览',
+                            event: 'preview'
+                        }, {
+                            name: '下载',
+                            event: 'download'
+                        }, {
+                            name: '<span style="color: red;">删除</span>',
+                            event: 'del'
+                        }]
+                    });
+                } else {
+                    htmlStr = fileChoose.renderList({
+                        data: dataList,
+                        menu: [{
+                            name: '预览',
+                            event: 'preview'
+                        }, {
+                            name: '下载',
+                            event: 'download'
+                        }]
+                    });
+                }
                 $('#file-list-group').html(htmlStr);
             }, {async: false});
         }
@@ -189,20 +229,31 @@
             renderList();
         });
 
-        // 上传
+        // 单文件上传
         upload.render({
             elem: '#file-btn-upload',
             accept: 'file',
             url: '/class-file/upload',
-            done: function(res){
-                handleNetworkError(res);
-                if(res.success) {
-                    layer.msg(res.msg, {icon: 1, time: 1000}, function () {
-                        renderList();
-                    });
-                }
+            done: function (res) {
+                layer.msg(res.msg, {icon: 1, time: 1000}, function () {
+                    renderList();
+                });
             }
         });
+
+        // 单文件上传
+        upload.render({
+            elem: '#files-btn-upload',
+            accept: 'file',
+            url: '/class-file/upload',
+            multiple: true,
+            done: function (res) {
+                layer.msg(res.msg, {icon: 1, time: 1000}, function () {
+                    renderList();
+                });
+            }
+        });
+
 
         // 列表点击事件
         $(document).off('click.fclip').on('click.fclip', '#file-list-group .file-choose-list-item', function (e) {
@@ -231,21 +282,21 @@
             var dataIndex = $(this).parent().parent().data('index');
             if (event === 'del') {  // 删除
                 layer.confirm('确定要删除此文件吗？', {shade: .1}, function () {
-                    admin.req('/class-file/delete', JSON.stringify([{'id': dataList[dataIndex].id}]), function(res){
-                        layer.msg(res.message, {icon: 1, time: 1000}, function () {
+                    admin.req('/class-file/delete', JSON.stringify([{'id': dataList[dataIndex].id}]), function (res) {
+                        layer.msg(res.msg, {icon: 1, time: 1000}, function () {
                             renderList();
                         });
                     }, 'post');
                 });
             } else if (event === 'preview') {
                 var suffix = dataList[dataIndex].type;
-                if(supportPreview(suffix)) {
+                if (supportPreview(suffix)) {
                     window.open('/class-file/preview?id=' + dataList[dataIndex].id);
                 } else {
                     layui.notice.msg('暂不支持该类型文件预览', {icon: 2});
                 }
             } else {
-                layer.msg('点击了' + event + '，索引' + dataIndex, {icon: 1});
+                window.open('/class-file/download?id=' + dataList[dataIndex].id);
             }
         });
 
@@ -254,23 +305,32 @@
             fileChoose.open({
                 fileUrl: '',
                 listUrl: 'list',
-                num: 3,
+                num: 20,
                 menu: [{
                     name: '预览',
                     event: 'view'
-                },{
+                }, {
+                    name: '下载',
+                    event: 'download'
+                }, {
                     name: '<span style="color: red;">删除</span>',
                     event: 'del'
                 }],
                 upload: {accept: 'file', url: '/class-file/upload'},
                 dialog: {offset: '60px', area: ['800px', '500px']},
                 onChoose: function (urls) {
-                    layer.msg('你选择了：' + JSON.stringify(urls), {icon: 1});
+                    layer.confirm('确定要删除这些文件吗？', {shade: .1}, function () {
+                        admin.req('/class-file/delete', JSON.stringify(urls), function (res) {
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function () {
+                                renderList();
+                            });
+                        }, 'post');
+                    });
                 },
-                menuClick: function(event, item) {
+                menuClick: function (event, item) {
                     if (event === 'del') {  // 删除
                         layer.confirm('确定要删除此文件吗？', {shade: .1}, function () {
-                            admin.req('/class-file/delete', JSON.stringify([{'id': item.id}]), function(res){
+                            admin.req('/class-file/delete', JSON.stringify([{'id': item.id}]), function (res) {
                                 layer.msg(res.msg, {icon: 1, time: 1000}, function () {
                                     $('#fc-btn-refresh').click();
                                     renderList();
@@ -279,13 +339,13 @@
                         });
                     } else if (event === 'view') {
                         var suffix = item.type;
-                        if(supportPreview(suffix)) {
+                        if (supportPreview(suffix)) {
                             window.open('/class-file/preview?id=' + item.id);
                         } else {
                             layui.notice.msg('暂不支持该类型文件预览', {icon: 2});
                         }
                     } else {
-                        layer.msg('点击了' + event + '，数据：' + JSON.stringify(item), {icon: 1});
+                        window.open('/class-file/download?id=' + item.id);
                     }
                 }
             });

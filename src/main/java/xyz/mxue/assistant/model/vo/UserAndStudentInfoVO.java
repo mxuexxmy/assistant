@@ -23,15 +23,6 @@ public class UserAndStudentInfoVO implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value = "微信openID")
-    private String wxOpenId;
-
-    @ApiModelProperty(value = "qqID")
-    private String qqOpenId;
-
-    @ApiModelProperty(value = "支付宝ID")
-    private Integer aliPayOpenId;
-
     @ApiModelProperty(value = "性别(字典 1男 2女 3未知)")
     private Integer sex;
 
@@ -43,4 +34,8 @@ public class UserAndStudentInfoVO implements Serializable {
 
     @ApiModelProperty(value = "学生类型")
     private Integer studentType;
+    
+    @ApiModelProperty(value = "头像地址")
+    private Long avatar;
+
 }

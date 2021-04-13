@@ -20,7 +20,7 @@ public class ChangeClassInfoVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    @TableId(value = "id")
+    @TableId(value = "学生班级关联ID")
     private Long id;
 
     @ApiModelProperty(value = "学校名")

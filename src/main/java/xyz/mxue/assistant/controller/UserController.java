@@ -99,6 +99,19 @@ public class UserController {
     }
 
     /**
+     * 更新用户头像
+     *
+     * @param user 用户信息
+     * @return Result<String>
+     */
+    @PostMapping("/update-avatar")
+    @ResponseBody
+    public Result<String> updateUserPortrait(@RequestBody User user) {
+        userService.updateAvatar(user);
+        return Result.succeed("更新头像成功！");
+    }
+
+    /**
      * 学生个人信息中心
      *
      * @param map 规划集合
@@ -121,7 +134,7 @@ public class UserController {
      */
     @PostMapping("/update-user-info")
     @ResponseBody
-    public Result<String> updateUserInfo(User user) {
+    public Result<String> updateUserInfo(@RequestBody User user) {
         boolean b = userService.updateById(user);
         return b ? Result.succeed("修改成功！") : Result.failed("修改失败！");
     }

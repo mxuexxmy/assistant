@@ -14,7 +14,6 @@ import xyz.mxue.assistant.commons.constant.ResultCode;
 import xyz.mxue.assistant.commons.enumeration.AdminTypeEnum;
 import xyz.mxue.assistant.commons.enumeration.UserStatusEnum;
 import xyz.mxue.assistant.commons.utils.RegexUtils;
-import xyz.mxue.assistant.entity.Student;
 import xyz.mxue.assistant.entity.User;
 import xyz.mxue.assistant.model.Result;
 import xyz.mxue.assistant.model.dto.RegisterInfoDTO;
@@ -39,6 +38,16 @@ public class LoginController {
 
     @Resource
     private UserService userService;
+
+    /**
+     * 登录页
+     *
+     * @return 页面
+     */
+    @GetMapping("/test")
+    public String test() {
+        return prefix + "/test";
+    }
 
     /**
      * 登录页
@@ -177,6 +186,8 @@ public class LoginController {
         user1.setEmail(registerInfo.getEmail());
         user1.setAdminType(AdminTypeEnum.NOT_ADMIN.getValue());
         user1.setStatus(UserStatusEnum.NORMAL.getValue());
+        Long aviator = Long.valueOf(1618254369674L);
+        user1.setAvatar(aviator);
         boolean save = userService.save(user1);
         return save ? Result.succeed("注册成功") : Result.failed("注册失败");
     }
@@ -195,4 +206,6 @@ public class LoginController {
         String context = "欢迎您注册学委助手，你的验证码为" + code + "。此验证码有效期为3分钟。";
         MailUtil.send(email, "注册验证码", context, false);
     }
+
+
 }

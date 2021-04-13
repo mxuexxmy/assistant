@@ -1,5 +1,6 @@
 package xyz.mxue.assistant.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.FileUtil;
@@ -38,9 +39,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -112,6 +115,29 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         pageResult.setData(dictList);
         return pageResult;
     }
+
+
+    @Override
+    public PageResult<Dict> listByFileIds(List<Long> fileIds) {
+        List<FileInfo> FileInfoList = fileInfoMapper.selectBatchIds(fileIds);
+        List<Dict> dictList = FileInfoList.stream().map(FileInfo -> {
+            Dict dict = Dict.create();
+            dict.put(CommonConstant.NAME, FileInfo.getFileOriginName());
+            dict.put(CommonConstant.TYPE, FileInfo.getFileSuffix());
+            dict.put(CommonConstant.IS_DIR, false);
+            dict.put(CommonConstant.ID, FileInfo.getId());
+            handleDictInfo(dict, FileInfo);
+            return dict;
+        }).collect(Collectors.toList());
+        PageResult<Dict> pageResult = new PageResult<>();
+        pageResult.setMsg("查询成功！");
+        pageResult.setCode(200);
+        pageResult.setData(dictList);
+        return pageResult;
+    }
+
+
+
 
     private void handleDictInfo(Dict dict, FileInfo FileInfo) {
         String suffix = FileInfo.getFileSuffix().toLowerCase();
@@ -189,9 +215,9 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
 
     @Override
     public Long uploadFile(MultipartFile file) {
-
+        Date date = new Date();
         // 生成文件的唯一id
-        Long fileId = IdWorker.getId();
+        Long fileId = date.getTime();
 
         // 获取文件原始名称
         String originalFilename = file.getOriginalFilename();
@@ -231,6 +257,8 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         FileInfo.setFileSuffix(fileSuffix);
         FileInfo.setFileSizeKb(fileSizeKb);
         FileInfo.setFileSizeInfo(fileSizeInfo);
+        // 增加创建用户
+        FileInfo.setCreateUser(StpUtil.getLoginIdAsLong());
         this.save(FileInfo);
 
         // 返回文件id

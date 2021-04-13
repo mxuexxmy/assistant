@@ -52,9 +52,6 @@ public class ClassInfo implements Serializable {
     @ApiModelProperty(value = "班级密钥")
     private String classKey;
 
-    @ApiModelProperty(value = "1是当前账号，2是以前账号，3被删除账号 ")
-    private Integer isNow;
-
     @ApiModelProperty(value = "创建时间")
     @TableField( fill = FieldFill.INSERT)
     private Date createTime;

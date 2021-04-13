@@ -31,15 +31,6 @@ public class User implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value = "微信openID")
-    private String wxOpenId;
-
-    @ApiModelProperty(value = "qqID")
-    private String qqOpenId;
-
-    @ApiModelProperty(value = "支付宝ID")
-    private Integer aliPayOpenId;
-
     @ApiModelProperty(value = "性别(字典 1男 2女 3未知)")
     private Integer sex;
 
@@ -56,7 +47,7 @@ public class User implements Serializable {
     private Integer adminType;
 
     @ApiModelProperty(value = "头像地址")
-    private String avatar;
+    private Long avatar;
 
     @ApiModelProperty(value = "用户状态（字典 0正常 1冻结 2删除）")
     private Integer status;
