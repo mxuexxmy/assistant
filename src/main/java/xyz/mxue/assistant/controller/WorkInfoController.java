@@ -1,13 +1,16 @@
 package xyz.mxue.assistant.controller;
 
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 import xyz.mxue.assistant.entity.WorkInfo;
 import xyz.mxue.assistant.model.PageResult;
 import xyz.mxue.assistant.model.Result;
+import xyz.mxue.assistant.service.StudentService;
 import xyz.mxue.assistant.service.WorkInfoService;
 
 import javax.annotation.Resource;
@@ -29,13 +32,17 @@ public class WorkInfoController {
     @Resource
     private WorkInfoService workInfoService;
 
+    @Resource
+    private StudentService studentService;
+
     /**
      * 班级作业页面
      *
      * @return String
      */
     @GetMapping("/index")
-    public String index() {
+    public String index(ModelMap map) {
+        map.put("studentType", studentService.getStudentType(StpUtil.getLoginIdAsLong()));
         return prefix + "/index";
     }
 

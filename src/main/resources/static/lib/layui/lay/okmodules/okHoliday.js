@@ -54,7 +54,7 @@ layui.define(["okUtils"], function (exprots) {
                     "泰山脊，领风骚环宇，有谁堪比？<br/>" +
                     "ok-admin v2.0 祝您国庆节快乐！<br/>祝福伟大的祖国，越来越强大。<br/>祝福强大的祖国，一直屹立于世界东方！(^し^)";
             } else {
-                content = "测试页面";
+                content = "欢迎来到学委助手";
             }
             return content;
         }
