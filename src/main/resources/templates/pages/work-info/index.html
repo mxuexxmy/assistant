@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>用户列表</title>
+    <title>作业列表</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
     <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
@@ -66,10 +66,9 @@
 <!-- 头工具栏模板 -->
 <script type="text/html" id="toolbarTpl">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="batchEnabled">批量正常</button>
-        <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="batchDisabled">批量冻结</button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDel">批量删除</button>
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>
+        <button class="layui-btn layui-btn-sm" lay-event="classWork">班级作业</button>
+        <button class="layui-btn layui-btn-sm" lay-event="personWork">个人作业</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDel">删除作业</button>
     </div>
 </script>
 <!-- 行工具栏模板 -->
@@ -133,17 +132,14 @@
 
         table.on("toolbar(tableFilter)", function (obj) {
             switch (obj.event) {
-                case "batchEnabled":
-                    batchEnabled();
+                case "classWork":
+                    classWork();
                     break;
-                case "batchDisabled":
-                    batchDisabled();
+                case "personWork":
+                    personWork();
                     break;
                 case "batchDel":
                     batchDel();
-                    break;
-                case "add":
-                    add();
                     break;
             }
         });
@@ -162,58 +158,32 @@
 
 
 
-        function batchEnabled() {
-            okLayer.confirm("确定要批量正常吗？", function (index) {
-                layer.close(index);
-                let idsStr = okUtils.tableBatchCheck(table);
-                if (idsStr) {
-                    okUtils.ajax("/user/batch-normal", "post", {idsStr: idsStr}, true).done(function (response) {
-                        okUtils.tableSuccessMsg(response.msg);
-                    }).fail(function (error) {
-                        console.log(error)
-                    });
-                }
+        function classWork() {
+            okLayer.open("班级作业", "/work-info/class-add", "95%", "95%", null, function () {
+                userTable.reload();
             });
         }
 
-        function batchDisabled() {
-            okLayer.confirm("确定要批量冻结吗？", function (index) {
-                layer.close(index);
-                let idsStr = okUtils.tableBatchCheck(table);
-                if (idsStr) {
-                    okUtils.ajax("/user/batch-freeze", "post", {idsStr: idsStr}, true).done(function (response) {
-                        okUtils.tableSuccessMsg(response.msg);
-                    }).fail(function (error) {
-                        console.log(error)
-                    });
-                }
+        function personWork() {
+            okLayer.open("个人作业", "/work-info/person-add", "95%", "95%", null, function () {
+                userTable.reload();
             });
         }
 
         function batchDel() {
-            okLayer.confirm("确定要批量删除吗？", function (index) {
-                layer.close(index);
-                let idsStr = okUtils.tableBatchCheck(table);
-                if (idsStr) {
-                    okUtils.ajax("/user/batch-delete", "post", {idsStr: idsStr}, true).done(function (response) {
-                        okUtils.tableSuccessMsg(response.msg);
-                    }).fail(function (error) {
-                        console.log(error)
-                    });
-                }
-            });
-        }
+            okLayer.confirm("确定要批量删除作业吗？", function () {
+                okUtils.ajax("/user/delete/" + id, "get", null, true).done(function (response) {
+                    okUtils.tableSuccessMsg(response.msg);
+                }).fail(function (error) {
 
-        function add() {
-            okLayer.open("添加用户", "/user/add-user-page", "90%", "90%", null, function () {
-                userTable.reload();
+                });
             })
         }
 
         function edit(id) {
             okLayer.open("修改用户", "/user/update-page/" + id, "90%", "90%", null, function () {
                 userTable.reload();
-            })
+            });
         }
 
         function del(id) {

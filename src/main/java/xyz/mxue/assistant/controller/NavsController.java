@@ -132,13 +132,13 @@ public class NavsController {
                 "        \"children\": [\n" +
                 "            {\n" +
                 "                \"title\": \"班级公告\",\n" +
-                "                \"href\": \"/system/info\",\n" +
+                "                \"href\": \"/class-notice/index\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
                 "            },\n" +
                 "            {\n" +
                 "                \"title\": \"作业提醒\",\n" +
-                "                \"href\": \"/system/info\",\n" +
+                "                \"href\": \"/work-notice/index\",\n" +
                 "                \"icon\": \"&#xe62e;\",\n" +
                 "                \"spread\": false\n" +
                 "            }\n" +

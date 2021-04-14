@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加班级</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+    <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <script src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+<div class="ok-body" >
+    <form class="layui-form layui-form-pane ok-form">
+
+        <div class="layui-card" style="background-color: #F6F6F6">
+            <div class="layui-card-header">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">作业标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="college" placeholder="请输入作业标题" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <button type="button" class="layui-btn layui-btn-sm"><span class="layui-badge layui-bg-green">C语言</span></button>
+                <button type="button" class="layui-btn layui-btn-sm"><span class="layui-badge layui-bg-green">软件工程</span></button>
+                <button type="button" class="layui-btn layui-btn-sm"><span class="layui-badge layui-bg-green">软件项目管理</span></button>
+                <button type="button" class="layui-btn layui-btn-sm"><span class="layui-badge layui-bg-green">软件测试</span></button>
+                <button type="button" class="layui-btn layui-btn-sm"><span class="layui-badge layui-bg-green">操作系统</span></button>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">作业标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="college" placeholder="请输入作业标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">截止时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test5" placeholder="yyyy-MM-dd HH:mm:ss">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">作业内容</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content"
+                          id="LAY_demo_editor"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">作业备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入备注" class="layui-textarea" name="desc"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-upload">
+            <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon"></i>作业附件
+            </button>
+            <div class="layui-upload-list">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th>文件名</th>
+                        <th>大小</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="demoList"></tbody>
+                </table>
+            </div>
+            <button type="button" class="layui-btn" id="testListAction">上传附件</button>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="add">新增作业</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(["element", "form", "okLayer", "okUtils", "layedit", "upload", "laydate"], function () {
+        let form = layui.form;
+        let okLayer = layui.okLayer;
+        let okUtils = layui.okUtils;
+        let layedit = layui.layedit;
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        var laydate = layui.laydate;
+
+        okLoading.close();
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //多文件列表示例
+        var demoListView = $('#demoList')
+            , uploadListIns = upload.render({
+            elem: '#testList'
+            , url: 'https://httpbin.org/post' //改成您自己的上传接口
+            , accept: 'file'
+            , multiple: true
+            , auto: false
+            , bindAction: '#testListAction'
+            , choose: function (obj) {
+                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(function (index, file, result) {
+                    var tr = $(['<tr id="upload-' + index + '">'
+                        , '<td>' + file.name + '</td>'
+                        , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
+                        , '<td>等待上传</td>'
+                        , '<td>'
+                        , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                        , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                        , '</td>'
+                        , '</tr>'].join(''));
+
+                    //单个重传
+                    tr.find('.demo-reload').on('click', function () {
+                        obj.upload(index, file);
+                    });
+
+                    //删除
+                    tr.find('.demo-delete').on('click', function () {
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                    });
+
+                    demoListView.append(tr);
+                });
+            }
+            , done: function (res, index, upload) {
+                if (res.files.file) { //上传成功
+                    var tr = demoListView.find('tr#upload-' + index)
+                        , tds = tr.children();
+                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(3).html(''); //清空操作
+                    return delete this.files[index]; //删除文件队列已经上传成功的文件
+                }
+                this.error(index, upload);
+            }
+            , error: function (index, upload) {
+                var tr = demoListView.find('tr#upload-' + index)
+                    , tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+            }
+        });
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#test5'
+            , type: 'datetime'
+        });
+
+        form.on("submit(add)", function (data) {
+            okUtils.ajax("/class-info/save-new-class", "post", data.field, true).done(function (response) {
+                okLayer.greenTickMsg(response.msg, function () {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                });
+            }).fail(function (error) {
+                console.log(error)
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

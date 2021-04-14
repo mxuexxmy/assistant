@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>添加班级</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+  <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+  <script src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+<div class="ok-body">
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>作业提醒</legend>
+  </fieldset>
+  <ul class="layui-timeline">
+    <li class="layui-timeline-item">
+      <i class="layui-icon layui-timeline-axis"></i>
+      <div class="layui-timeline-content layui-text">
+        <h3 class="layui-timeline-title">8月18日<span class="layui-badge layui-bg-green">已看</span></h3>
+        <p>
+          你的作业还没有交！请前往班级作业提交作业。
+        </p>
+      </div>
+    </li>
+    <li class="layui-timeline-item">
+      <i class="layui-icon layui-timeline-axis"></i>
+      <div class="layui-timeline-content layui-text">
+        <h3 class="layui-timeline-title">8月16日<span class="layui-badge layui-bg-green">已看</span></h3>
+        <p>已分布作业，请前往班级作业查看！</p>
+      </div>
+    </li>
+    <li class="layui-timeline-item">
+      <i class="layui-icon layui-timeline-axis"></i>
+      <div class="layui-timeline-content layui-text">
+        <h3 class="layui-timeline-title">8月15日<span class="layui-badge layui-bg-green">已看</span></h3>
+        <p>
+        作业即将停止提交，请尽快提交作业！
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script>
+  layui.use(["element", "form", "okLayer", "okUtils"], function () {
+    let form = layui.form;
+    let okLayer = layui.okLayer;
+    let okUtils = layui.okUtils;
+
+    okLoading.close();
+
+  });
+</script>
+</body>
+</html>

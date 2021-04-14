@@ -2,14 +2,12 @@ package xyz.mxue.assistant.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.mxue.assistant.entity.WorkInfo;
 import xyz.mxue.assistant.model.PageResult;
+import xyz.mxue.assistant.model.Result;
 import xyz.mxue.assistant.service.WorkInfoService;
 
 import javax.annotation.Resource;
@@ -39,6 +37,59 @@ public class WorkInfoController {
     @GetMapping("/index")
     public String index() {
         return prefix + "/index";
+    }
+
+
+    /**
+     * 新增班级作业页面
+     *
+     * @return String
+     */
+    @GetMapping("/class-add")
+    public String classAdd() {
+        return prefix + "/class-add";
+    }
+
+    /**
+     * 新增个人作业页面
+     *
+     * @return String
+     */
+    @GetMapping("/person-add")
+    public String personAdd() {
+        return prefix + "/person-add";
+    }
+
+    /**
+     * 修改作业页面
+     *
+     * @return String
+     */
+    @GetMapping("/update")
+    public String update() {
+        return prefix + "/update";
+    }
+
+    /**
+     * 删除作业
+     *
+     * @param id  作业ID
+     * @return Result<String>
+     */
+    @GetMapping("/delete/{id}")
+    public Result<String> delete(@PathVariable String id) {
+        return null;
+    }
+
+    /**
+     * 作业详情
+     *
+     * @param id 作业ID
+     * @return String
+     */
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable String id) {
+        return prefix + "/detail";
     }
 
     /**

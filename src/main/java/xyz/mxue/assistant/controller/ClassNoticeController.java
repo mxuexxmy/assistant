@@ -1,6 +1,8 @@
 package xyz.mxue.assistant.controller;
 
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -13,9 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @author mxuexxmy
  * @since 2021-04-04
  */
-@RestController
+@Controller
 @RequestMapping("/class-notice")
 public class ClassNoticeController {
+
+    private final String prefix = "/pages/class-notice";
+
+    /**
+     * 班级通知页面
+     *
+     * @return String
+     */
+    @GetMapping("/index")
+    public String index() {
+        return prefix + "/index";
+    }
 
 }
 

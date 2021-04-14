@@ -44,16 +44,6 @@ public class LoginController {
      *
      * @return 页面
      */
-    @GetMapping("/test")
-    public String test() {
-        return prefix + "/test";
-    }
-
-    /**
-     * 登录页
-     *
-     * @return 页面
-     */
     @GetMapping
     public String index() {
         return prefix + "/login";

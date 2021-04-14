@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加班级</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../css/oksub.css" th:href="@{/css/oksub.css}">
+    <script type="text/javascript" src="../../lib/loading/okLoading.js" th:src="@{/lib/loading/okLoading.js}"></script>
+    <script src="../../lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</head>
+<body>
+<div class="ok-body" >
+
+</div>
+
+<script>
+    layui.use(["element", "form", "okLayer", "okUtils"], function () {
+        let form = layui.form;
+        let okLayer = layui.okLayer;
+        let okUtils = layui.okUtils;
+
+
+        okLoading.close();
+
+
+        form.on("submit(add)", function (data) {
+            okUtils.ajax("/class-info/save-new-class", "post", data.field, true).done(function (response) {
+                okLayer.greenTickMsg(response.msg, function () {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                });
+            }).fail(function (error) {
+                console.log(error)
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
